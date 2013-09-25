@@ -11,6 +11,7 @@
 #import "Basic.h"
 #import "Nested.h"
 #import "ComplexNested.h"
+#import "Broken.h"
 
 NSDictionary* aBasic(){
     return @{
@@ -133,6 +134,27 @@ describe(@"Nested (depth:4) JSON", ^{
             ComplexNested *mapChild2 = [nested.childrenMap objectForKey:@"7"];
             [[mapChild1.uid should] equal:@6];
             [[mapChild2.uid should] equal:@7];
+        });
+    });
+});
+
+describe(@"Incorrect classes", ^{
+    context(@"given valid values", ^{
+        
+        __block NSDictionary *json =
+        @{
+          @"url": @"http://someURL",
+          @"array": @[@{@"url":@"http://i.am.a.child"}],
+          @"doesntExist": @"Hello World",
+          @"integer": @1
+        };
+        
+        __block Broken *broken;
+        
+        it(@"should detect the Miyagi'd collection type regardless of order", ^{
+            broken =  [[Broken alloc] initWithDictionary:json];
+            Broken *child = broken.objectProtocolFirst.firstObject;
+            [[child.url should] equal:@"http://i.am.a.child"];
         });
     });
 });

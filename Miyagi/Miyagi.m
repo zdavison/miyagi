@@ -9,7 +9,41 @@
 #import "Miyagi.h"
 #import <objc/message.h>
 
+#pragma mark - Statics
+
+static const char* JSONTypes[] = {
+    "NSString",
+    "NSNumber",
+    "NSNull",
+    "NSDictionary",
+    "NSArray"
+};
+
 #pragma mark - Helpers
+
+BOOL miyagi_isValidType(const char *typeName){
+    
+    if(!typeName){
+        return NO;
+    }
+    
+    // check basic supported JSON types
+    int count = sizeof(JSONTypes) / sizeof(JSONTypes[0]);
+    for(int i=0; i<count; i++){
+        if(strcmp(typeName, JSONTypes[i]) == 0){
+            return YES;
+        }
+    }
+    
+    // check Miyagi types
+    Class cls = objc_lookUpClass(typeName);
+    if(class_conformsToProtocol(cls, @protocol(JSON))){
+        return YES;
+    }
+    
+    return NO;
+}
+
 NSString *miyagi_nondestructive_upcase(NSString *input){
     NSString *upcasedChar = [input substringToIndex:1].capitalizedString;
     return [input stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:upcasedChar];
@@ -34,21 +68,14 @@ NSString *miyagi_parsePROPERTYKey(NSString *signature){
 }
 
 NSString *miyagi_parseFirstProtocolName(NSString *attributeString){
-    int start,end;
-    int leftAngle   = [attributeString rangeOfString:@"<"].location;
-    int comma       = [attributeString rangeOfString:@","].location;
-    int rightAngle  = [attributeString rangeOfString:@">"].location;
-    if(comma == NSNotFound || rightAngle < comma){
-        end = rightAngle;
-    }else{
-        end = comma;
-    }
+    int start   = [attributeString rangeOfString:@"<"].location;
+    int end  = [attributeString rangeOfString:@">"].location;
     
-    if(leftAngle == NSNotFound || end == NSNotFound){
+    if(start == NSNotFound || end == NSNotFound){
         return nil;
     }
     
-    start = leftAngle + 1; //exclude first character
+    start += 1; //exclude first character
     return [attributeString substringWithRange:NSMakeRange(start, end - start)];
 }
 
@@ -58,9 +85,17 @@ NSString *miyagi_parseTypeName(NSString *attributeString){
     if(end == NSNotFound){
         end = [attributeString rangeOfString:@"\","].location;
     }
+    
+    // detecting basic types and other screwups
+    if(end == NSNotFound){
+        return nil;
+    }
+    
     return [attributeString substringWithRange:NSMakeRange(start, end - start)];
 }
 
+// TODO: This is a bit of a mammoth and can definitely be refactored
+//
 id miyagi_constructor(id self, SEL _cmd, NSDictionary *dictionary){
                 //                      struct objc_super supes = { self, [self superclass] };
     if(self){   //TODO: should this be 'if(self ==  objc_msgSendSuper(&supes, @selector(init)))' ??
@@ -70,6 +105,12 @@ id miyagi_constructor(id self, SEL _cmd, NSDictionary *dictionary){
             NSString *propKey = [@"__MIYAGI__" stringByAppendingString:jsonKey];
             
             objc_property_t property = class_getProperty([self class], propKey.UTF8String);
+            
+            // if the property doesnt exist, carry on.
+            if(!property){
+                continue;
+            }
+            
             const char *attributes = property_getAttributes(property);
             
             // arrays
@@ -154,11 +195,21 @@ void miyagi_injectProtocolRouting(Class cls, Protocol *protocol){
         
         // get source property attributes
         objc_property_t property = class_getProperty(cls, propKey.UTF8String);
+        if(!property){
+            [NSException raise:@"MIYAGINonExistantPropertyException" format:@"The property %@ does not exist on class %@",propKey,NSStringFromClass(cls)];
+        }
         unsigned int attributeCount;
         objc_property_attribute_t *attributes = property_copyAttributeList(property, &attributeCount);
         
         // add property
         class_addProperty(cls, jsonKey.UTF8String, attributes, attributeCount);
+        
+        // ensure property is valid
+        NSString *attributeString = [NSString stringWithUTF8String:property_getAttributes(property)];
+        NSString *propertyTypeName = miyagi_parseTypeName(attributeString);
+        if(!miyagi_isValidType(propertyTypeName.UTF8String)){
+            [NSException raise:@"MIYAGIInvalidTypeException" format:@"The property %@ is of invalid type '%@', is it a basic datatype? (BOOL,int,float...)",propKey,propertyTypeName];
+        }
         
         // add getters/setters
         NSString *jsonSetterName = [NSString stringWithFormat:@"set%@:",jsonKey];
@@ -166,6 +217,7 @@ void miyagi_injectProtocolRouting(Class cls, Protocol *protocol){
         
         SEL getterSEL = NSSelectorFromString(jsonKey);
         SEL setterSEL = NSSelectorFromString(jsonSetterName);
+        
         IMP getterIMP = class_getMethodImplementation(cls, NSSelectorFromString(propKey));
         IMP setterIMP = class_getMethodImplementation(cls, NSSelectorFromString(propSetterName));
         
