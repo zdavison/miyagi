@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		252FE94F221544B1A40AAD99 /* libPods-MiyagiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CCF0124FB84A729AC246BB /* libPods-MiyagiTests.a */; };
 		875BABC917F2F9B700F585E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABC817F2F9B700F585E3 /* Foundation.framework */; };
 		875BABCE17F2F9B700F585E3 /* Miyagi.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 875BABCD17F2F9B700F585E3 /* Miyagi.h */; };
 		875BABD017F2F9B700F585E3 /* Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABCF17F2F9B700F585E3 /* Miyagi.m */; };
@@ -16,6 +17,10 @@
 		875BABDD17F2F9B700F585E3 /* libMiyagi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABC517F2F9B700F585E3 /* libMiyagi.a */; };
 		875BABE317F2F9B700F585E3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 875BABE117F2F9B700F585E3 /* InfoPlist.strings */; };
 		875BABE517F2F9B700F585E3 /* MiyagiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABE417F2F9B700F585E3 /* MiyagiTests.m */; };
+		875BABF117F2FA1800F585E3 /* Basic.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABF017F2FA1800F585E3 /* Basic.m */; };
+		875BABF417F30A9A00F585E3 /* Nested.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABF317F30A9A00F585E3 /* Nested.m */; };
+		875BABF617F3133D00F585E3 /* workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABF517F3133D00F585E3 /* workspace.m */; };
+		875BABF917F32AEC00F585E3 /* ComplexNested.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABF817F32AEC00F585E3 /* ComplexNested.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +47,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1B889B26D4144DC6AEEC7598 /* Pods-MiyagiTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiyagiTests.xcconfig"; path = "Pods/Pods-MiyagiTests.xcconfig"; sourceTree = "<group>"; };
+		44CCF0124FB84A729AC246BB /* libPods-MiyagiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MiyagiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		875BABC517F2F9B700F585E3 /* libMiyagi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMiyagi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		875BABC817F2F9B700F585E3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		875BABCC17F2F9B700F585E3 /* Miyagi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Miyagi-Prefix.pch"; sourceTree = "<group>"; };
@@ -53,6 +60,13 @@
 		875BABE017F2F9B700F585E3 /* MiyagiTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MiyagiTests-Info.plist"; sourceTree = "<group>"; };
 		875BABE217F2F9B700F585E3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		875BABE417F2F9B700F585E3 /* MiyagiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MiyagiTests.m; sourceTree = "<group>"; };
+		875BABEF17F2FA1800F585E3 /* Basic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Basic.h; sourceTree = "<group>"; };
+		875BABF017F2FA1800F585E3 /* Basic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Basic.m; sourceTree = "<group>"; };
+		875BABF217F30A9A00F585E3 /* Nested.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nested.h; sourceTree = "<group>"; };
+		875BABF317F30A9A00F585E3 /* Nested.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nested.m; sourceTree = "<group>"; };
+		875BABF517F3133D00F585E3 /* workspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = workspace.m; sourceTree = "<group>"; };
+		875BABF717F32AEC00F585E3 /* ComplexNested.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComplexNested.h; sourceTree = "<group>"; };
+		875BABF817F32AEC00F585E3 /* ComplexNested.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComplexNested.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +86,7 @@
 				875BABDD17F2F9B700F585E3 /* libMiyagi.a in Frameworks */,
 				875BABDA17F2F9B700F585E3 /* UIKit.framework in Frameworks */,
 				875BABD817F2F9B700F585E3 /* Foundation.framework in Frameworks */,
+				252FE94F221544B1A40AAD99 /* libPods-MiyagiTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +100,7 @@
 				875BABDE17F2F9B700F585E3 /* MiyagiTests */,
 				875BABC717F2F9B700F585E3 /* Frameworks */,
 				875BABC617F2F9B700F585E3 /* Products */,
+				1B889B26D4144DC6AEEC7598 /* Pods-MiyagiTests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,6 +119,7 @@
 				875BABC817F2F9B700F585E3 /* Foundation.framework */,
 				875BABD617F2F9B700F585E3 /* XCTest.framework */,
 				875BABD917F2F9B700F585E3 /* UIKit.framework */,
+				44CCF0124FB84A729AC246BB /* libPods-MiyagiTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -113,6 +130,7 @@
 				875BABCD17F2F9B700F585E3 /* Miyagi.h */,
 				875BABCF17F2F9B700F585E3 /* Miyagi.m */,
 				875BABCB17F2F9B700F585E3 /* Supporting Files */,
+				875BABF517F3133D00F585E3 /* workspace.m */,
 			);
 			path = Miyagi;
 			sourceTree = "<group>";
@@ -128,6 +146,7 @@
 		875BABDE17F2F9B700F585E3 /* MiyagiTests */ = {
 			isa = PBXGroup;
 			children = (
+				875BABEE17F2FA1800F585E3 /* TestClasses */,
 				875BABE417F2F9B700F585E3 /* MiyagiTests.m */,
 				875BABDF17F2F9B700F585E3 /* Supporting Files */,
 			);
@@ -141,6 +160,19 @@
 				875BABE117F2F9B700F585E3 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		875BABEE17F2FA1800F585E3 /* TestClasses */ = {
+			isa = PBXGroup;
+			children = (
+				875BABEF17F2FA1800F585E3 /* Basic.h */,
+				875BABF017F2FA1800F585E3 /* Basic.m */,
+				875BABF217F30A9A00F585E3 /* Nested.h */,
+				875BABF317F30A9A00F585E3 /* Nested.m */,
+				875BABF717F32AEC00F585E3 /* ComplexNested.h */,
+				875BABF817F32AEC00F585E3 /* ComplexNested.m */,
+			);
+			path = TestClasses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,9 +199,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 875BABEB17F2F9B700F585E3 /* Build configuration list for PBXNativeTarget "MiyagiTests" */;
 			buildPhases = (
+				18C6B9BDB4EF4D9F93256782 /* Check Pods Manifest.lock */,
 				875BABD117F2F9B700F585E3 /* Sources */,
 				875BABD217F2F9B700F585E3 /* Frameworks */,
 				875BABD317F2F9B700F585E3 /* Resources */,
+				97B32981B84D4C7085BD105C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -219,12 +253,46 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		18C6B9BDB4EF4D9F93256782 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		97B32981B84D4C7085BD105C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-MiyagiTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		875BABC117F2F9B700F585E3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				875BABD017F2F9B700F585E3 /* Miyagi.m in Sources */,
+				875BABF617F3133D00F585E3 /* workspace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +300,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				875BABF417F30A9A00F585E3 /* Nested.m in Sources */,
+				875BABF917F32AEC00F585E3 /* ComplexNested.m in Sources */,
+				875BABF117F2FA1800F585E3 /* Basic.m in Sources */,
 				875BABE517F2F9B700F585E3 /* MiyagiTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +421,7 @@
 		};
 		875BABEC17F2F9B700F585E3 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B889B26D4144DC6AEEC7598 /* Pods-MiyagiTests.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -370,6 +442,7 @@
 		};
 		875BABED17F2F9B700F585E3 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1B889B26D4144DC6AEEC7598 /* Pods-MiyagiTests.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -403,6 +476,7 @@
 				875BABEA17F2F9B700F585E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		875BABEB17F2F9B700F585E3 /* Build configuration list for PBXNativeTarget "MiyagiTests" */ = {
 			isa = XCConfigurationList;
@@ -411,6 +485,7 @@
 				875BABED17F2F9B700F585E3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
