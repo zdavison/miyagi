@@ -1,0 +1,418 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		875BABC917F2F9B700F585E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABC817F2F9B700F585E3 /* Foundation.framework */; };
+		875BABCE17F2F9B700F585E3 /* Miyagi.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 875BABCD17F2F9B700F585E3 /* Miyagi.h */; };
+		875BABD017F2F9B700F585E3 /* Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABCF17F2F9B700F585E3 /* Miyagi.m */; };
+		875BABD717F2F9B700F585E3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABD617F2F9B700F585E3 /* XCTest.framework */; };
+		875BABD817F2F9B700F585E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABC817F2F9B700F585E3 /* Foundation.framework */; };
+		875BABDA17F2F9B700F585E3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABD917F2F9B700F585E3 /* UIKit.framework */; };
+		875BABDD17F2F9B700F585E3 /* libMiyagi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABC517F2F9B700F585E3 /* libMiyagi.a */; };
+		875BABE317F2F9B700F585E3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 875BABE117F2F9B700F585E3 /* InfoPlist.strings */; };
+		875BABE517F2F9B700F585E3 /* MiyagiTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABE417F2F9B700F585E3 /* MiyagiTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		875BABDB17F2F9B700F585E3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 875BABBD17F2F9B700F585E3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 875BABC417F2F9B700F585E3;
+			remoteInfo = Miyagi;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		875BABC317F2F9B700F585E3 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				875BABCE17F2F9B700F585E3 /* Miyagi.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		875BABC517F2F9B700F585E3 /* libMiyagi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMiyagi.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		875BABC817F2F9B700F585E3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		875BABCC17F2F9B700F585E3 /* Miyagi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Miyagi-Prefix.pch"; sourceTree = "<group>"; };
+		875BABCD17F2F9B700F585E3 /* Miyagi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Miyagi.h; sourceTree = "<group>"; };
+		875BABCF17F2F9B700F585E3 /* Miyagi.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Miyagi.m; sourceTree = "<group>"; };
+		875BABD517F2F9B700F585E3 /* MiyagiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MiyagiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		875BABD617F2F9B700F585E3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		875BABD917F2F9B700F585E3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		875BABE017F2F9B700F585E3 /* MiyagiTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MiyagiTests-Info.plist"; sourceTree = "<group>"; };
+		875BABE217F2F9B700F585E3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		875BABE417F2F9B700F585E3 /* MiyagiTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MiyagiTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		875BABC217F2F9B700F585E3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				875BABC917F2F9B700F585E3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		875BABD217F2F9B700F585E3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				875BABD717F2F9B700F585E3 /* XCTest.framework in Frameworks */,
+				875BABDD17F2F9B700F585E3 /* libMiyagi.a in Frameworks */,
+				875BABDA17F2F9B700F585E3 /* UIKit.framework in Frameworks */,
+				875BABD817F2F9B700F585E3 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		875BABBC17F2F9B700F585E3 = {
+			isa = PBXGroup;
+			children = (
+				875BABCA17F2F9B700F585E3 /* Miyagi */,
+				875BABDE17F2F9B700F585E3 /* MiyagiTests */,
+				875BABC717F2F9B700F585E3 /* Frameworks */,
+				875BABC617F2F9B700F585E3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		875BABC617F2F9B700F585E3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				875BABC517F2F9B700F585E3 /* libMiyagi.a */,
+				875BABD517F2F9B700F585E3 /* MiyagiTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		875BABC717F2F9B700F585E3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				875BABC817F2F9B700F585E3 /* Foundation.framework */,
+				875BABD617F2F9B700F585E3 /* XCTest.framework */,
+				875BABD917F2F9B700F585E3 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		875BABCA17F2F9B700F585E3 /* Miyagi */ = {
+			isa = PBXGroup;
+			children = (
+				875BABCD17F2F9B700F585E3 /* Miyagi.h */,
+				875BABCF17F2F9B700F585E3 /* Miyagi.m */,
+				875BABCB17F2F9B700F585E3 /* Supporting Files */,
+			);
+			path = Miyagi;
+			sourceTree = "<group>";
+		};
+		875BABCB17F2F9B700F585E3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				875BABCC17F2F9B700F585E3 /* Miyagi-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		875BABDE17F2F9B700F585E3 /* MiyagiTests */ = {
+			isa = PBXGroup;
+			children = (
+				875BABE417F2F9B700F585E3 /* MiyagiTests.m */,
+				875BABDF17F2F9B700F585E3 /* Supporting Files */,
+			);
+			path = MiyagiTests;
+			sourceTree = "<group>";
+		};
+		875BABDF17F2F9B700F585E3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				875BABE017F2F9B700F585E3 /* MiyagiTests-Info.plist */,
+				875BABE117F2F9B700F585E3 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		875BABC417F2F9B700F585E3 /* Miyagi */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 875BABE817F2F9B700F585E3 /* Build configuration list for PBXNativeTarget "Miyagi" */;
+			buildPhases = (
+				875BABC117F2F9B700F585E3 /* Sources */,
+				875BABC217F2F9B700F585E3 /* Frameworks */,
+				875BABC317F2F9B700F585E3 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Miyagi;
+			productName = Miyagi;
+			productReference = 875BABC517F2F9B700F585E3 /* libMiyagi.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		875BABD417F2F9B700F585E3 /* MiyagiTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 875BABEB17F2F9B700F585E3 /* Build configuration list for PBXNativeTarget "MiyagiTests" */;
+			buildPhases = (
+				875BABD117F2F9B700F585E3 /* Sources */,
+				875BABD217F2F9B700F585E3 /* Frameworks */,
+				875BABD317F2F9B700F585E3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				875BABDC17F2F9B700F585E3 /* PBXTargetDependency */,
+			);
+			name = MiyagiTests;
+			productName = MiyagiTests;
+			productReference = 875BABD517F2F9B700F585E3 /* MiyagiTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		875BABBD17F2F9B700F585E3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = thingsdoer;
+			};
+			buildConfigurationList = 875BABC017F2F9B700F585E3 /* Build configuration list for PBXProject "Miyagi" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 875BABBC17F2F9B700F585E3;
+			productRefGroup = 875BABC617F2F9B700F585E3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				875BABC417F2F9B700F585E3 /* Miyagi */,
+				875BABD417F2F9B700F585E3 /* MiyagiTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		875BABD317F2F9B700F585E3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				875BABE317F2F9B700F585E3 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		875BABC117F2F9B700F585E3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				875BABD017F2F9B700F585E3 /* Miyagi.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		875BABD117F2F9B700F585E3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				875BABE517F2F9B700F585E3 /* MiyagiTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		875BABDC17F2F9B700F585E3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 875BABC417F2F9B700F585E3 /* Miyagi */;
+			targetProxy = 875BABDB17F2F9B700F585E3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		875BABE117F2F9B700F585E3 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				875BABE217F2F9B700F585E3 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		875BABE617F2F9B700F585E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		875BABE717F2F9B700F585E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		875BABE917F2F9B700F585E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Miyagi.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Miyagi/Miyagi-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		875BABEA17F2F9B700F585E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/Miyagi.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Miyagi/Miyagi-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		875BABEC17F2F9B700F585E3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Miyagi/Miyagi-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "MiyagiTests/MiyagiTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		875BABED17F2F9B700F585E3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Miyagi/Miyagi-Prefix.pch";
+				INFOPLIST_FILE = "MiyagiTests/MiyagiTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		875BABC017F2F9B700F585E3 /* Build configuration list for PBXProject "Miyagi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				875BABE617F2F9B700F585E3 /* Debug */,
+				875BABE717F2F9B700F585E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		875BABE817F2F9B700F585E3 /* Build configuration list for PBXNativeTarget "Miyagi" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				875BABE917F2F9B700F585E3 /* Debug */,
+				875BABEA17F2F9B700F585E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		875BABEB17F2F9B700F585E3 /* Build configuration list for PBXNativeTarget "MiyagiTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				875BABEC17F2F9B700F585E3 /* Debug */,
+				875BABED17F2F9B700F585E3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 875BABBD17F2F9B700F585E3 /* Project object */;
+}
