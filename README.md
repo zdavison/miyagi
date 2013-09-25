@@ -79,5 +79,8 @@ Feel free to examine the code and contribute!
 * Cleaner constructor.
 * Invalid data handling.
 
+## How can I help?
+
+Write tests! Even if they don't pass, I'll look at valid JSON spec tests and make them work. :)
 
 
