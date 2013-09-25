@@ -3,7 +3,7 @@ miyagi
 
 JSON Marshalling, the simplest way.
 
-!(http://www.cazejefitness.com/mr-miyagi-smiling.jpg)
+![JSON,JSOFF!](http://www.cazejefitness.com/mr-miyagi-smiling.jpg)
 
 ## Warning
 
