@@ -60,7 +60,7 @@ think `miyagi` is cool.
 * JSON spec visible alongside your properties, in your header.
 * `@properties` don't need to match JSON keys.
 * No need to subclass anything.
-* Lightweight implementation (2 files, 300 lines).
+* Lightweight implementation (2 files, <500 lines).
 
 ## How it works
 
