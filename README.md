@@ -8,7 +8,11 @@ JSON Marshalling, the simplest way.
 ## Warning
 
 This is still very much in alpha development, so if you stumbled across this, welcome, 
-feel free to play around, but probably don't use it in production yet.
+feel free to play around, but probably don't use it in production yet. This is also why it's not in `cocoapods` yet.
+
+## Installation
+
+Copy `Miyagi.h` and `Miyagi.m` into you project, then import `Miyagi.h`.
 
 ## Overview
 
