@@ -19,7 +19,7 @@ Copy `Miyagi.h` and `Miyagi.m` into you project, then import `Miyagi.h`.
 `miyagi` lets you spec JSON mappings in a way similar to [jackson-annotations](https://github.com/FasterXML/jackson-annotations).
 Freeing you from writing JSON mapping code anywhere in your application. A `miyagi`-fied class could look like this: 
 
-```
+```objective-c
 JSON(MyClass)
     j(myJsonKey, name);
     j(myJsonKey2, boolean);
@@ -45,7 +45,7 @@ essentially giving you similar syntax to typed collections in other languages li
 
 It looks like this:
 
-```
+```objective-c
 @property(nonatomic,strong)NSArray<MyClass>      *array;
 @property(nonatomic,strong)NSDictionary<MyClass> *map;
 ```
