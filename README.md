@@ -75,9 +75,8 @@ Feel free to examine the code and contribute!
 
 ## Immediate //TODO:
 
-* Tighter implementation, more edge case coverage.
-* Cleaner constructor.
-* Invalid data handling.
+* toJSON()
+* More tests (primarily around bad data).
 
 ## How can I help?
 
