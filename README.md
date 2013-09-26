@@ -38,6 +38,19 @@ with a `j(key,property)` mapping for each property you'd like to map, then adopt
 Afterwards, you can call `initWithDictionary:` to create an instance from a JSON dictionary 
 (returned from your favourite JSON parser)
 
+## Supported Types
+
+`miyagi` supports the following types:
+
+JSON               | Objective-C
+-------------------|-------------
+`null`             | [`NSNull`][NSNull]
+`true` and `false` | [`NSNumber`][NSNumber]
+Number             | [`NSNumber`][NSNumber]
+String             | [`NSString`][NSString]
+Array              | [`NSArray`][NSArray]
+Object             | [`NSDictionary`][NSDictionary]
+
 ## Collections
 
 `miyagi` supports collection marshalling using 'fake protocols' in the same way as `JSONModel`(https://github.com/icanzilb/JSONModel), 
