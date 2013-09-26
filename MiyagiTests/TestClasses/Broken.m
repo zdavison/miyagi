@@ -10,4 +10,16 @@
 
 @implementation Broken
 
+-(id)initWithDictionary:(NSDictionary *)dictionary{
+    return self;
+}
+
+-(NSString*)overridenGetter{
+    return [@"prepended_by_getter_" stringByAppendingString:_overridenGetter];
+}
+
+-(void)setUrl:(NSString *)url{
+    _url = [url stringByAppendingString:@"_appended_by_setter"];
+}
+
 @end

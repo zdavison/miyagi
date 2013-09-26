@@ -143,18 +143,29 @@ describe(@"Incorrect classes", ^{
         
         __block NSDictionary *json =
         @{
+          @"id": @1,
           @"url": @"http://someURL",
-          @"array": @[@{@"url":@"http://i.am.a.child"}],
+          @"array": @[@{@"id":@2}],
           @"doesntExist": @"Hello World",
-          @"integer": @1
+          @"jsonOverride": @"override",
+          @"integer": @1,
+          @"nullValue": [NSNull null]
         };
         
-        __block Broken *broken;
+        __block Broken *broken = [[Broken alloc] initWithDictionary:json];;
+        
+        it(@"should parse NSNull correctly", ^{
+            [[broken.nullValue should] beNil];
+        });
+        
+        it(@"should handle getter/setter overrides correctly", ^{
+            [[broken.url should] equal:@"http://someURL_appended_by_setter"];
+            [[broken.overridenGetter should] equal:@"prepended_by_getter_override"];
+        });
         
         it(@"should detect the Miyagi'd collection type regardless of order", ^{
-            broken =  [[Broken alloc] initWithDictionary:json];
             Broken *child = broken.objectProtocolFirst.firstObject;
-            [[child.url should] equal:@"http://i.am.a.child"];
+            [[child.uid should] equal:@2];
         });
     });
 });

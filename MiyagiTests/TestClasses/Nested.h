@@ -23,7 +23,7 @@ JSOFF(Nested)
 @property(nonatomic,strong)NSNumber             *uid;
 @property(nonatomic,strong)Nested               *child;
 @property(nonatomic,strong)Basic                *basic;
-@property(nonatomic,strong)NSArray<Basic>      *childrenArray;
-@property(nonatomic,strong)NSDictionary<Basic> *childrenMap;
+@property(nonatomic,strong)NSArray<Basic>       *childrenArray;
+@property(nonatomic,strong)NSDictionary<Basic>  *childrenMap;
 
 @end

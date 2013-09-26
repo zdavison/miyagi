@@ -67,16 +67,33 @@ NSString *miyagi_parsePROPERTYKey(NSString *signature){
     return [signature substringWithRange:keyRange];
 }
 
-NSString *miyagi_parseFirstProtocolName(NSString *attributeString){
-    int start   = [attributeString rangeOfString:@"<"].location;
-    int end  = [attributeString rangeOfString:@">"].location;
+NSArray *miyagi_parseProtocolNames(NSString *attributeString){
     
-    if(start == NSNotFound || end == NSNotFound){
-        return nil;
+    // trim everything before the first protocol, so we dont get any weird class collisions
+    NSMutableArray *protocols = [NSMutableArray array];
+    int start = [attributeString rangeOfString:@"<"].location;
+    
+    // if we dont have any protocols, just return an empty array
+    if(start == NSNotFound){
+        return [NSArray array];
     }
     
-    start += 1; //exclude first character
-    return [attributeString substringWithRange:NSMakeRange(start, end - start)];
+    NSString *trimmedString = [attributeString substringFromIndex:start];
+    NSCharacterSet *splitCharacters = [NSCharacterSet characterSetWithCharactersInString:@"<>"];
+    
+    // get potential protocols
+    NSArray *components = [trimmedString componentsSeparatedByCharactersInSet:splitCharacters];
+    
+    for(NSString *string in components){
+        Protocol *protocol = objc_getProtocol(string.UTF8String);
+        
+        // add valid protocols
+        if(protocol){
+            [protocols addObject:string];
+        }
+    }
+    
+    return protocols;
 }
 
 NSString *miyagi_parseTypeName(NSString *attributeString){
@@ -94,8 +111,57 @@ NSString *miyagi_parseTypeName(NSString *attributeString){
     return [attributeString substringWithRange:NSMakeRange(start, end - start)];
 }
 
-// TODO: This is a bit of a mammoth and can definitely be refactored
-//
+Class miyagi_validClassFromName(NSString *name){
+    
+    Class cls = NSClassFromString(name);
+    if(cls && class_conformsToProtocol(cls, @protocol(JSON))){
+        return cls;
+    }
+    
+    return nil;
+}
+
+id miyagi_transformCollection(id value, NSArray *validProtocolNames){
+    
+    // arrays
+    if([value isKindOfClass:[NSArray class]]){
+        NSMutableArray *transformed = [NSMutableArray array];
+        
+        for(NSString *protocolName in validProtocolNames){
+            Class cls = miyagi_validClassFromName(protocolName);
+            if(cls){
+                for(NSDictionary *object in (NSArray*)value){
+                    id instance = [[cls alloc] initWithDictionary:object];
+                    [transformed addObject:instance];
+                }
+                return transformed;
+            }
+        }
+    }
+    
+    // dictionaries
+    else if([value isKindOfClass:[NSDictionary class]]){
+        NSMutableDictionary *transformed = [NSMutableDictionary dictionary];
+        
+        for(NSString *protocolName in validProtocolNames){
+            Class cls = miyagi_validClassFromName(protocolName);
+            if(cls){
+                for(NSString *key in [(NSDictionary*)value allKeys]){
+                    id object = [value objectForKey:key];
+                    id instance = object;
+                    if([object isKindOfClass:[NSDictionary class]]){
+                        instance = [[cls alloc] initWithDictionary:object];
+                    }
+                    [transformed setObject:instance forKey:key];
+                }
+                return transformed;
+            }
+        }
+    }
+    
+    return value;
+}
+
 id miyagi_constructor(id self, SEL _cmd, NSDictionary *dictionary){
                 //                      struct objc_super supes = { self, [self superclass] };
     if(self){   //TODO: should this be 'if(self ==  objc_msgSendSuper(&supes, @selector(init)))' ??
@@ -111,69 +177,22 @@ id miyagi_constructor(id self, SEL _cmd, NSDictionary *dictionary){
                 continue;
             }
             
+            // parse out the 'types' of the collection (eg: NSArray<MyModel>)
             const char *attributes = property_getAttributes(property);
-            
-            // arrays
-            if([value isKindOfClass:[NSArray class]]){
-                
-                NSMutableArray *parsedArray = [NSMutableArray array];
-                
-                // parse out the 'type' of the collection (eg: NSArray<MyModel>)
-                NSString *attributeString = [NSString stringWithUTF8String:attributes];
-                NSString *className = miyagi_parseFirstProtocolName(attributeString);
-                Class cls = NSClassFromString(className);
-                
-                // check if the class exists and is <JSON>
-                if(cls && class_conformsToProtocol(cls, @protocol(JSON))){
-                    // iterate / parse all our children
-                    for(NSDictionary *object in (NSArray*)value){
-                        id instance = [[cls alloc] initWithDictionary:object];
-                        [parsedArray addObject:instance];
-                    }
-                    
-                    value = parsedArray;
-                }
+            NSString *attributeString = [NSString stringWithUTF8String:attributes];
+            NSArray *protocolNames = miyagi_parseProtocolNames(attributeString);
+        
+            // transform our value, if it's a collection
+            if([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]){
+                value = miyagi_transformCollection(value, protocolNames);
             }
             
-            // dictionaries
-            else if([value isKindOfClass:[NSDictionary class]]){
-                
-                NSMutableDictionary *parsedDictionary = [NSMutableDictionary dictionary];
-                
-                // parse out the 'type' of the collection (eg: NSArray<MyModel>)
-                NSString *attributeString = [NSString stringWithUTF8String:attributes];
-                NSString *className = miyagi_parseFirstProtocolName(attributeString);
-                Class cls = NSClassFromString(className);
-                
-                // check if the type exists and is <JSON>
-                if(cls && class_conformsToProtocol(cls, @protocol(JSON))){
-                    // iterate / parse all our children
-                    for(NSString *key in [(NSDictionary*)value allKeys]){
-                        id object = [value objectForKey:key];
-                        id instance = object;
-                        if([object isKindOfClass:[NSDictionary class]]){
-                            instance = [[cls alloc] initWithDictionary:object];
-                        }
-                        [parsedDictionary setObject:instance forKey:key];
-                    }
-                    
-                    value = parsedDictionary;
-                }
-                
-                // otherwise, is our property a <JSON> object
-                else{
-                    NSString *attributeString = [NSString stringWithUTF8String:attributes];
-                    NSString *className = miyagi_parseTypeName(attributeString);
-                    Class cls = NSClassFromString(className);
-                    
-                    if(cls && class_conformsToProtocol(cls, @protocol(JSON))){
-                        value = [[cls alloc] initWithDictionary:value];
-                    }
-                }
+            // check if our value is a miyagi'd class
+            NSString *typeName = miyagi_parseTypeName(attributeString);
+            Class type = NSClassFromString(typeName);
+            if(type && class_conformsToProtocol(type, @protocol(JSON))){
+                value = [[type alloc] initWithDictionary:value];
             }
-            
-            // objects
-            
             
             [self setValue:value forKey:propKey];
         }
@@ -241,7 +260,7 @@ void miyagi_injectConstructor(Class cls){
         IMP oldIMP = class_getMethodImplementation(cls, initSEL);
         IMP newIMP = imp_implementationWithBlock(^(id self, NSDictionary *dictionary){
             miyagi_constructor(self, nil, dictionary);
-            oldIMP(self, nil, dictionary);
+            return oldIMP(self, nil, dictionary);
         });
         method_setImplementation(m, newIMP);
     }else{

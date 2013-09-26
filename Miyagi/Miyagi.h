@@ -22,6 +22,7 @@
     @end \
     __attribute__((constructor)) \
     static void __MIYAGI__##CLASSNAME##__inject(){ \
+        @protocol(CLASSNAME); \
         Protocol *protocol = @protocol(__MIYAGI__##CLASSNAME); \
         Class cls = objc_lookUpClass(#CLASSNAME); \
         if(!miyagi_classInitialized(cls)){\
