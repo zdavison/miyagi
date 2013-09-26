@@ -170,4 +170,30 @@ describe(@"Incorrect classes", ^{
     });
 });
 
+describe(@"Simple Cocoa Objects", ^{
+    context(@"with valid properties", ^{
+        
+        __block Basic *basic = [[Basic alloc] init];
+        basic.uid = @1;
+        basic.name = @"Already Initialized";
+        basic.boolean = @YES;
+        basic.stringArray = @[@1,@2];
+        basic.stringMap = @{@"key": @"value"};
+        
+        NSDictionary *json = [basic JSON];
+        
+        [[theValue(json.allKeys.count) should] equal:theValue(@5)];
+        
+        for(id value in json.allValues){
+            [[value shouldNot] beNil];
+        }
+        
+        [[json[@"id"] should] equal:@1];
+        [[json[@"JSONname"] should] equal:@"Already Initialized"];
+        [[json[@"JSONbool"] should] equal:@YES];
+        [[json[@"JSONarray"] should] equal:@[@1,@2]];
+        [[json[@"JSONmap"] should] equal:@{@"key": @"value"}];
+    });
+});
+
 SPEC_END

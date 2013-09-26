@@ -121,7 +121,12 @@ Class miyagi_validClassFromName(NSString *name){
     return nil;
 }
 
-id miyagi_transformCollection(id value, NSArray *validProtocolNames){
+typedef enum{
+    miyagi_transformationTypeToObject,
+    miyagi_transformationTypeToJSON
+}miyagi_transformationType;
+
+id miyagi_transformCollection(id value, NSArray *validProtocolNames, miyagi_transformationType transformationType){
     
     // arrays
     if([value isKindOfClass:[NSArray class]]){
@@ -130,8 +135,13 @@ id miyagi_transformCollection(id value, NSArray *validProtocolNames){
         for(NSString *protocolName in validProtocolNames){
             Class cls = miyagi_validClassFromName(protocolName);
             if(cls){
-                for(NSDictionary *object in (NSArray*)value){
-                    id instance = [[cls alloc] initWithDictionary:object];
+                for(id object in (NSArray*)value){
+                    id instance = nil;
+                    if(transformationType == miyagi_transformationTypeToObject){
+                        instance = [[cls alloc] initWithDictionary:object];
+                    }else{
+                        instance = [object JSON];
+                    }
                     [transformed addObject:instance];
                 }
                 return transformed;
@@ -150,7 +160,11 @@ id miyagi_transformCollection(id value, NSArray *validProtocolNames){
                     id object = [value objectForKey:key];
                     id instance = object;
                     if([object isKindOfClass:[NSDictionary class]]){
-                        instance = [[cls alloc] initWithDictionary:object];
+                        if(transformationType ==  miyagi_transformationTypeToObject){
+                            instance = [[cls alloc] initWithDictionary:object];
+                        }else{
+                            instance = [object JSON];
+                        }
                     }
                     [transformed setObject:instance forKey:key];
                 }
@@ -184,7 +198,7 @@ id miyagi_constructor(id self, SEL _cmd, NSDictionary *dictionary){
         
             // transform our value, if it's a collection
             if([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]){
-                value = miyagi_transformCollection(value, protocolNames);
+                value = miyagi_transformCollection(value, protocolNames, miyagi_transformationTypeToObject);
             }
             
             // check if our value is a miyagi'd class
@@ -198,6 +212,55 @@ id miyagi_constructor(id self, SEL _cmd, NSDictionary *dictionary){
         }
     }
     return self;
+}
+
+NSDictionary* miyagi_toJSON(id self, SEL _cmd){
+    
+    // get miyagimethods
+    NSString *protocolName = [@"__MIYAGI__" stringByAppendingString:NSStringFromClass([self class])];
+    Protocol *protocol = NSProtocolFromString(protocolName);
+    
+    unsigned int methodCount;
+    struct objc_method_description *methods = protocol_copyMethodDescriptionList(protocol, NO, YES, &methodCount);
+    
+    // return value
+    NSMutableDictionary *json = [NSMutableDictionary dictionary];
+    
+    // populate dictionary
+    for(int i=0; i<methodCount; i++){
+        // get names of source/target properties
+        NSString *name = NSStringFromSelector(methods[i].name);
+        NSString *propKey = miyagi_parsePROPERTYKey(name);
+        NSString *jsonKey = miyagi_parseJSONKey(name);
+        
+        id value = [self valueForKey:propKey];
+        
+        objc_property_t property = class_getProperty([self class], propKey.UTF8String);
+        
+        // if the property doesnt exist, carry on.
+        if(!property){
+            continue;
+        }
+        
+        // parse out the 'types' of the collection (eg: NSArray<MyModel>)
+        const char *attributes = property_getAttributes(property);
+        NSString *attributeString = [NSString stringWithUTF8String:attributes];
+        NSArray *protocolNames = miyagi_parseProtocolNames(attributeString);
+        
+        // transform our value, if it's a collection
+        if([value isKindOfClass:[NSDictionary class]] || [value isKindOfClass:[NSArray class]]){
+            value = miyagi_transformCollection(value, protocolNames, miyagi_transformationTypeToJSON);
+        }
+        
+        // recurse if a child conforms to JSON
+        if([value conformsToProtocol:@protocol(JSON)]){
+            value = [value JSON];
+        }
+        
+        [json setObject:value forKey:jsonKey];
+    }
+    
+    return json;
 }
 
 #pragma mark - Public
@@ -266,6 +329,21 @@ void miyagi_injectConstructor(Class cls){
     }else{
         // otherwise just add the method
         class_addMethod(cls, initSEL, (IMP)miyagi_constructor, "@@:@");
+    }
+}
+
+void miyagi_injectToJSON(Class cls){
+    
+    SEL jsonSEL = NSSelectorFromString(@"JSON");
+    
+    // check if we have a user implementation of JSON
+    Method toJSON = class_getInstanceMethod(cls, jsonSEL);
+    if(toJSON){
+        // currently, we dont allow people to inject their own behaviour behind 'JSON:'. This may change in future.
+        [NSException raise:@"MIYAGIInjectionException" format:@"%@ already implements 'JSON:', did you add your own implementation?",cls];
+    }else{
+        // otherwise just add the method
+        class_addMethod(cls, jsonSEL, (IMP)miyagi_toJSON, "@@");
     }
 }
 
