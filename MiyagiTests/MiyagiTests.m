@@ -13,7 +13,7 @@
 #import "ComplexNested.h"
 #import "Broken.h"
 
-NSDictionary* aBasic(){
+NSDictionary* aBasicJSON(){
     return @{
       @"id": @42,
       @"JSONname": @"Jimmy Basic",
@@ -21,6 +21,17 @@ NSDictionary* aBasic(){
       @"JSONarray": @[@1,@2,@3],
       @"JSONmap": @{@"key": @"value"}
     };
+}
+
+Basic* aBasicObject(){
+    __block Basic *basic = [[Basic alloc] init];
+    basic.uid = @1;
+    basic.name = @"Already Initialized";
+    basic.boolean = @YES;
+    basic.stringArray = @[@1,@2];
+    basic.stringMap = @{@"key": @"value"};
+    
+    return basic;
 }
 
 SPEC_BEGIN(MiyagiSpec)
@@ -82,12 +93,12 @@ describe(@"Nested (depth:1) JSON", ^{
               @{
                 @"id": @2
                },
-          @"JSONbasic": aBasic(),
-          @"JSONchildrenArray": @[aBasic()],
-          @"JSONchildrenMap": @{@"basic": aBasic()}
+          @"JSONbasic": aBasicJSON(),
+          @"JSONchildrenArray": @[aBasicJSON()],
+          @"JSONchildrenMap": @{@"basic": aBasicJSON()}
         };
         
-        Basic *basic = [[Basic alloc] initWithDictionary:aBasic()];
+        Basic *basic = [[Basic alloc] initWithDictionary:aBasicJSON()];
         Nested *nested = [[Nested alloc] initWithDictionary:json];
         
         it(@"should parse correctly", ^{
@@ -193,6 +204,35 @@ describe(@"Simple Cocoa Objects", ^{
         [[json[@"JSONbool"] should] equal:@YES];
         [[json[@"JSONarray"] should] equal:@[@1,@2]];
         [[json[@"JSONmap"] should] equal:@{@"key": @"value"}];
+    });
+});
+
+describe(@"Nested (depth:1) Cocoa Objects", ^{
+    context(@"with valid properties", ^{
+        
+        __block Nested *simpleNested = [[Nested alloc] init];
+        simpleNested.uid = @2;
+        
+        __block Nested *nested = [[Nested alloc] init];
+        nested.uid = @1;
+        nested.basic = aBasicObject();
+        nested.child = simpleNested;
+        nested.childrenArray = (NSArray<Basic>*)@[aBasicObject()];
+        nested.childrenMap =(NSDictionary<Basic>*) @{@"key": aBasicObject()};
+        
+        NSDictionary *json = [nested JSON];
+        
+        [[theValue(json.allKeys.count) should] equal:theValue(@5)];
+        
+        for(id value in json.allValues){
+            [[value shouldNot] beNil];
+        }
+        
+        [[json[@"id"] should] equal:@1];
+        [[json[@"JSONbasic"] should] equal:[aBasicObject() JSON]];
+        [[json[@"JSONchild"] should] equal:[simpleNested JSON]];
+        [[json[@"JSONchildrenArray"] should] equal:@[aBasicObject()]];
+        [[json[@"JSONchildrenMap"] should] equal:@{@"key": aBasicObject()}];
     });
 });
 
