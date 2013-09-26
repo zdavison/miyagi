@@ -44,12 +44,12 @@ Afterwards, you can call `initWithDictionary:` to create an instance from a JSON
 
 JSON               | Objective-C
 -------------------|-------------
-`null`             | [`NSNull`][NSNull]
-`true` and `false` | [`NSNumber`][NSNumber]
-Number             | [`NSNumber`][NSNumber]
-String             | [`NSString`][NSString]
-Array              | [`NSArray`][NSArray]
-Object             | [`NSDictionary`][NSDictionary]
+`null`             | `NSNull`
+`true` and `false` | `NSNumber`
+Number             | `NSNumber`
+String             | `NSString`
+Array              | `NSArray`
+Object             | `NSDictionary`
 
 ## Collections
 
