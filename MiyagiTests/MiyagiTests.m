@@ -25,10 +25,10 @@ NSDictionary* aBasicJSON(){
 
 Basic* aBasicObject(){
     __block Basic *basic = [[Basic alloc] init];
-    basic.uid = @1;
-    basic.name = @"Already Initialized";
+    basic.uid = @42;
+    basic.name = @"Jimmy Basic";
     basic.boolean = @YES;
-    basic.stringArray = @[@1,@2];
+    basic.stringArray = @[@1,@2,@3];
     basic.stringMap = @{@"key": @"value"};
     
     return basic;
@@ -83,7 +83,7 @@ describe(@"Basic JSON", ^{
     });
 });
 
-describe(@"Nested (depth:1) JSON", ^{
+describe(@"Nested (depth == 1) JSON", ^{
     context(@"given valid values", ^{
         
         __block NSDictionary *json =
@@ -98,7 +98,7 @@ describe(@"Nested (depth:1) JSON", ^{
           @"JSONchildrenMap": @{@"basic": aBasicJSON()}
         };
         
-        Basic *basic = [[Basic alloc] initWithDictionary:aBasicJSON()];
+        Basic *basic = aBasicObject();
         Nested *nested = [[Nested alloc] initWithDictionary:json];
         
         it(@"should parse correctly", ^{
@@ -112,7 +112,7 @@ describe(@"Nested (depth:1) JSON", ^{
     });
 });
 
-describe(@"Nested (depth:4) JSON", ^{
+describe(@"Nested (depth > 1) JSON", ^{
     context(@"given valid values", ^{
         
         __block NSDictionary *json =
@@ -207,7 +207,7 @@ describe(@"Simple Cocoa Objects", ^{
     });
 });
 
-describe(@"Nested (depth:1) Cocoa Objects", ^{
+describe(@"Nested (depth == 1) Cocoa Objects", ^{
     context(@"with valid properties", ^{
         
         __block Nested *simpleNested = [[Nested alloc] init];
@@ -222,17 +222,57 @@ describe(@"Nested (depth:1) Cocoa Objects", ^{
         
         NSDictionary *json = [nested JSON];
         
-        [[theValue(json.allKeys.count) should] equal:theValue(@5)];
+        it(@"should have the correct amount of keys", ^{
+            [[theValue(json.allKeys.count) should] equal:theValue(5)];
+        });
         
-        for(id value in json.allValues){
-            [[value shouldNot] beNil];
-        }
+        it(@"should parse correctly", ^{
+            [[json[@"id"] should] equal:@1];
+            [[json[@"JSONbasic"] should] equal:[aBasicObject() JSON]];
+            [[json[@"JSONchild"] should] equal:[simpleNested JSON]];
+            [[json[@"JSONchildrenArray"] should] equal:@[[aBasicObject() JSON]]];
+            [[json[@"JSONchildrenMap"] should] equal:@{@"key": aBasicObject()}];
+        });
+    });
+});
+
+describe(@"Nested (depth > 1)", ^{
+    context(@"with valid properties", ^{
         
-        [[json[@"id"] should] equal:@1];
-        [[json[@"JSONbasic"] should] equal:[aBasicObject() JSON]];
-        [[json[@"JSONchild"] should] equal:[simpleNested JSON]];
-        [[json[@"JSONchildrenArray"] should] equal:@[aBasicObject()]];
-        [[json[@"JSONchildrenMap"] should] equal:@{@"key": aBasicObject()}];
+        __block ComplexNested *foetus = [[ComplexNested alloc] init];
+        foetus.uid = @4;
+        
+        __block ComplexNested *toddler = [[ComplexNested alloc] init];
+        toddler.uid = @3;
+        toddler.childrenArray = (NSArray<ComplexNested>*)@[foetus];
+        
+        __block ComplexNested *child = [[ComplexNested alloc] init];
+        child.uid = @2;
+        child.child = toddler;
+        
+        __block ComplexNested *parent = [[ComplexNested alloc] init];
+        parent.uid = @1;
+        parent.child = child;
+        parent.childrenMap = (NSDictionary<ComplexNested>*)@{@"child": child};
+        
+        NSDictionary *json = [parent JSON];
+        
+        it(@"should parse correctly", ^{
+            NSDictionary *child = json[@"JSONchild"];
+            NSDictionary *toddler = child[@"JSONchild"];
+            NSArray *children = toddler[@"JSONchildrenArray"];
+            NSDictionary *foetus = children.firstObject;
+            
+            [[json should] beNonNil];
+            [[child should] beNonNil];
+            [[toddler should] beNonNil];
+            [[foetus should] beNonNil];
+            
+            [[json[@"id"] should] equal:@1];
+            [[child[@"id"] should] equal:@2];
+            [[toddler[@"id"] should] equal:@3];
+            [[foetus[@"id"] should] equal:@4];
+        });
     });
 });
 

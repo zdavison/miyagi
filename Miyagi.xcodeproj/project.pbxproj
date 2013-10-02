@@ -21,6 +21,7 @@
 		875BABF417F30A9A00F585E3 /* Nested.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABF317F30A9A00F585E3 /* Nested.m */; };
 		875BABF917F32AEC00F585E3 /* ComplexNested.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABF817F32AEC00F585E3 /* ComplexNested.m */; };
 		875BABFC17F3367F00F585E3 /* Broken.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABFB17F3367F00F585E3 /* Broken.m */; };
+		878792A817F496D4007E4343 /* workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 878792A717F496D4007E4343 /* workspace.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		875BABF817F32AEC00F585E3 /* ComplexNested.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComplexNested.m; sourceTree = "<group>"; };
 		875BABFA17F3367F00F585E3 /* Broken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Broken.h; sourceTree = "<group>"; };
 		875BABFB17F3367F00F585E3 /* Broken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Broken.m; sourceTree = "<group>"; };
+		878792A717F496D4007E4343 /* workspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = workspace.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +133,7 @@
 				875BABCD17F2F9B700F585E3 /* Miyagi.h */,
 				875BABCF17F2F9B700F585E3 /* Miyagi.m */,
 				875BABCB17F2F9B700F585E3 /* Supporting Files */,
+				878792A717F496D4007E4343 /* workspace.m */,
 			);
 			path = Miyagi;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				875BABD017F2F9B700F585E3 /* Miyagi.m in Sources */,
+				878792A817F496D4007E4343 /* workspace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

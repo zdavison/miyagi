@@ -257,11 +257,12 @@ NSDictionary* miyagi_toJSON(id self, SEL _cmd){
             value = [value JSON];
         }
         
-        if(!value){
-            value = [NSNull null];
+        // set our value, if it isn't nil
+        if(value){
+            [json setObject:value forKey:jsonKey];
         }
         
-        [json setObject:value forKey:jsonKey];
+        
     }
     
     return json;
