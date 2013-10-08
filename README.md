@@ -58,7 +58,7 @@ essentially giving you similar syntax to typed collections in other languages li
 
 It looks like this:
 
-```objective-c
+```smalltalk
 @property(nonatomic,strong)NSArray<MyClass>      *array;
 @property(nonatomic,strong)NSDictionary<MyClass> *map;
 ```
