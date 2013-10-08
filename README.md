@@ -1,9 +1,7 @@
-miyagi
+miyagi [![Build Status](https://travis-ci.org/zdavison/miyagi.png?branch=master)](https://travis-ci.org/zdavison/miyagi)
 ======
 
 Zen-like JSON <-> Object marshalling
-
-[![Build Status](https://travis-ci.org/zdavison/miyagi.png?branch=master)](https://travis-ci.org/zdavison/miyagi)
 
 ![JSON,JSOFF!](http://www.cazejefitness.com/mr-miyagi-smiling.jpg)
 
