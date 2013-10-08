@@ -44,7 +44,7 @@ BOOL miyagi_isValidType(const char *typeName){
     return NO;
 }
 
-NSString* miyagi_nondestructive_upcase(NSString *input){
+NSString* miyagi_nondestructiveCapitalize(NSString *input){
     NSString *upcasedChar = [input substringToIndex:1].capitalizedString;
     return [input stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:upcasedChar];
 }
@@ -135,54 +135,68 @@ typedef enum{
     miyagi_transformationTypeToJSON
 }miyagi_transformationType;
 
-id miyagi_transformCollection(id value, NSArray *validProtocolNames, miyagi_transformationType transformationType){
+NSArray* miyagi_transformArray(NSArray *input, NSArray *validProtocolNames, miyagi_transformationType transformationType){
     
-    // arrays
-    if([value isKindOfClass:[NSArray class]]){
-        NSMutableArray *transformed = [NSMutableArray array];
-        
-        for(NSString *protocolName in validProtocolNames){
-            Class cls = miyagi_validClassFromName(protocolName);
-            if(cls){
-                for(id object in (NSArray*)value){
-                    id instance = nil;
-                    if(transformationType == miyagi_transformationTypeToObject){
+    NSMutableArray *transformed = [NSMutableArray array];
+    
+    for(NSString *protocolName in validProtocolNames){
+        Class cls = miyagi_validClassFromName(protocolName);
+        if(cls){
+            for(id object in (NSArray*)input){
+                id instance = nil;
+                if(transformationType == miyagi_transformationTypeToObject){
+                    instance = [[cls alloc] initWithDictionary:object];
+                }else{
+                    instance = [object JSON];
+                }
+                [transformed addObject:instance];
+            }
+            return transformed;
+        }
+    }
+    
+    return input;
+}
+
+NSDictionary* miyagi_transformDictionary(NSDictionary *input, NSArray *validProtocolNames, miyagi_transformationType transformationType){
+    
+    NSMutableDictionary *transformed = [NSMutableDictionary dictionary];
+    
+    for(NSString *protocolName in validProtocolNames){
+        Class cls = miyagi_validClassFromName(protocolName);
+        if(cls){
+            for(NSString *key in [(NSDictionary*)input allKeys]){
+                id object = [input objectForKey:key];
+                id instance = object;
+                if([object isKindOfClass:[NSDictionary class]]){
+                    if(transformationType ==  miyagi_transformationTypeToObject){
                         instance = [[cls alloc] initWithDictionary:object];
                     }else{
                         instance = [object JSON];
                     }
-                    [transformed addObject:instance];
                 }
-                return transformed;
+                [transformed setObject:instance forKey:key];
             }
+            return transformed;
         }
+    }
+    
+    return input;
+}
+
+id miyagi_transformCollection(id input, NSArray *validProtocolNames, miyagi_transformationType transformationType){
+    
+    // arrays
+    if([input isKindOfClass:[NSArray class]]){
+        return miyagi_transformArray(input, validProtocolNames, transformationType);
     }
     
     // dictionaries
-    else if([value isKindOfClass:[NSDictionary class]]){
-        NSMutableDictionary *transformed = [NSMutableDictionary dictionary];
-        
-        for(NSString *protocolName in validProtocolNames){
-            Class cls = miyagi_validClassFromName(protocolName);
-            if(cls){
-                for(NSString *key in [(NSDictionary*)value allKeys]){
-                    id object = [value objectForKey:key];
-                    id instance = object;
-                    if([object isKindOfClass:[NSDictionary class]]){
-                        if(transformationType ==  miyagi_transformationTypeToObject){
-                            instance = [[cls alloc] initWithDictionary:object];
-                        }else{
-                            instance = [object JSON];
-                        }
-                    }
-                    [transformed setObject:instance forKey:key];
-                }
-                return transformed;
-            }
-        }
+    else if([input isKindOfClass:[NSDictionary class]]){
+        return miyagi_transformDictionary(input, validProtocolNames, transformationType);
     }
     
-    return value;
+    return input;
 }
 
 id miyagi_constructor(id self, SEL _cmd, NSDictionary *dictionary){
@@ -223,10 +237,15 @@ id miyagi_constructor(id self, SEL _cmd, NSDictionary *dictionary){
     return self;
 }
 
-NSDictionary* miyagi_toJSON(id self, SEL _cmd){
+NSDictionary* miyagi_toJSONFromClass(id self, SEL _cmd, Class cls){
     
+    // if we dont have a specific target class, default to [self class]
+    if(!cls){
+        cls = [self class];
+    }
+
     // get miyagimethods
-    NSString *protocolName = [@"__MIYAGI__" stringByAppendingString:NSStringFromClass([self class])];
+    NSString *protocolName = [@"__MIYAGI__" stringByAppendingString:NSStringFromClass(cls)];
     Protocol *protocol = NSProtocolFromString(protocolName);
     
     unsigned int methodCount;
@@ -244,7 +263,7 @@ NSDictionary* miyagi_toJSON(id self, SEL _cmd){
         
         id value = [self valueForKey:propKey];
         
-        objc_property_t property = class_getProperty([self class], propKey.UTF8String);
+        objc_property_t property = class_getProperty(cls, propKey.UTF8String);
         
         // if the property doesnt exist, carry on.
         if(!property){
@@ -271,10 +290,21 @@ NSDictionary* miyagi_toJSON(id self, SEL _cmd){
             [json setObject:value forKey:jsonKey];
         }
         
-        
+    }
+    
+    // recurse upwards, if our superclass is also a Miyagi'd class
+    Class superClass = class_getSuperclass(cls);
+    if(class_conformsToProtocol(superClass, @protocol(JSON))){
+        NSDictionary *superJSON = miyagi_toJSONFromClass(self, _cmd, superClass);
+        NSDictionary *combinedJSON = miyagi_combineDictionaries(superJSON, json);
+        json = [NSMutableDictionary dictionaryWithDictionary:combinedJSON];
     }
     
     return json;
+}
+
+NSDictionary* miyagi_toJSON(id self, SEL _cmd){
+    return miyagi_toJSONFromClass(self, _cmd, [self class]);
 }
 
 #pragma mark - Public
@@ -309,7 +339,7 @@ void miyagi_injectProtocolRouting(Class cls, Protocol *protocol){
         
         // add getters/setters
         NSString *jsonSetterName = [NSString stringWithFormat:@"set%@:",jsonKey];
-        NSString *propSetterName = [NSString stringWithFormat:@"set%@:",miyagi_nondestructive_upcase(propKey)];
+        NSString *propSetterName = [NSString stringWithFormat:@"set%@:",miyagi_nondestructiveCapitalize(propKey)];
         
         SEL getterSEL = NSSelectorFromString(jsonKey);
         SEL setterSEL = NSSelectorFromString(jsonSetterName);
@@ -345,8 +375,6 @@ void miyagi_injectConstructor(Class cls){
     }
 }
 
-
-//TODO: This seems like a very naïve and potentially confounding approach.
 void miyagi_injectToJSON(Class cls){
     
     SEL jsonSEL = NSSelectorFromString(@"JSON");
@@ -354,8 +382,14 @@ void miyagi_injectToJSON(Class cls){
     // check if we have a user implementation of JSON
     Method toJSON = class_getInstanceMethod(cls, jsonSEL);
     if(toJSON){
-        // currently, we dont allow people to inject their own behaviour behind 'JSON:'. This may change in future.
-        [NSException raise:@"MIYAGIInjectionException" format:@"%@ already implements 'JSON:', did you add your own implementation?",cls];
+        // if so, we need to inject our behaviour before the users init
+        IMP oldIMP = class_getMethodImplementation(cls, jsonSEL);
+        IMP newIMP = imp_implementationWithBlock(^(id self){
+            NSDictionary *miyagiJSON = miyagi_toJSON(self, nil);
+            NSDictionary *userJSON = oldIMP(self, nil);
+            return miyagi_combineDictionaries(miyagiJSON, userJSON);
+        });
+        method_setImplementation(toJSON, newIMP);
     }else{
         // otherwise just add the method
         class_addMethod(cls, jsonSEL, (IMP)miyagi_toJSON, "@@");

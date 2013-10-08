@@ -15,7 +15,7 @@
 }
 
 -(NSString*)overridenGetter{
-    return [@"prepended_by_getter_" stringByAppendingString:_overridenGetter];
+    return [@"prepended_by_getter_" stringByAppendingString:(_overridenGetter) ?: @""];
 }
 
 -(void)setUrl:(NSString *)url{

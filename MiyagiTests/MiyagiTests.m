@@ -151,7 +151,7 @@ describe(@"Nested (depth > 1) JSON", ^{
     });
 });
 
-describe(@"Incorrect classes", ^{
+describe(@"Weird/Abnormal ('Broken') classes", ^{
     context(@"given valid values", ^{
         
         __block NSDictionary *json =
@@ -184,7 +184,7 @@ describe(@"Incorrect classes", ^{
         it(@"should serialize to JSON including the users 'JSON' method and all Miyagi mapped keys", ^{
             NSDictionary *json = [broken JSON];
             
-            [[theValue(json.allKeys.count) should] equal:theValue(9)];
+            [[theValue(json.allKeys.count) should] equal:theValue(5)];
             [[json[@"fromUserCode"] should] equal:@"userValue"];
         });
     });
@@ -291,20 +291,40 @@ describe(@"Nested (depth > 1) Cocoa Objects", ^{
 
 describe(@"Subclasses", ^{
   context(@"with valid properties", ^{
-    
-    __block SubClass *subclass = [[SubClass alloc] init];
-    subclass.name = @"Parent";
-    subclass.subName = @"Sub";
-    
-    NSDictionary *json = [subclass JSON];
-    
-    it(@"should have the correct amount of keys", ^{
-      [[theValue(json.allKeys.count) should] equal:theValue(2)];
+      
+    context(@"when parsing into an object", ^{
+        NSDictionary *json = @{
+                               @"JSONname":@"Parent",
+                               @"JSONsubName":@"Sub"
+                               };
+        
+        __block SubClass *subclass = [[SubClass alloc] initWithDictionary:json];
+        
+        it(@"should parse superclass properties correctly", ^{
+            [[subclass.name should] equal:@"Parent"];
+        });
+        
+        it(@"should parse subclass properties correctly", ^{
+            [[subclass.subName should] equal:@"Sub"];
+        });
     });
-    
-    it(@"should serialize into JSON correctly", ^{
-      [[json[@"JSONname"] should] equal:@"Parent"];
-      [[json[@"JSONsubName"] should] equal:@"Sub"];
+      
+    context(@"when serializing to JSON", ^{
+        
+        __block SubClass *subclass = [[SubClass alloc] init];
+        subclass.name = @"Parent";
+        subclass.subName = @"Sub";
+        
+        NSDictionary *json = [subclass JSON];
+        
+        it(@"should have the correct amount of keys", ^{
+            [[theValue(json.allKeys.count) should] equal:theValue(2)];
+        });
+        
+        it(@"should serialize into JSON correctly", ^{
+            [[json[@"JSONname"] should] equal:@"Parent"];
+            [[json[@"JSONsubName"] should] equal:@"Sub"];
+        });
     });
   });
 });
