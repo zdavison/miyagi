@@ -31,7 +31,7 @@ JSOFF(MyClass)
 All you need to do is place the `JSON/JSOFF` syntax at the top of your file, 
 with a `j(key,property)` mapping for each property you'd like to map, then adopt the `<JSON>` protocol.
 Afterwards, you can call `initWithDictionary:` to create an instance from a JSON dictionary 
-(returned from your favourite JSON parser)
+(returned from your favourite JSON parser), and `JSON` to serialize the object back to a JSON dictionary.
 
 ## Supported Types
 
