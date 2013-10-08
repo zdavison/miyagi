@@ -88,8 +88,8 @@ Feel free to examine the code and contribute!
 
 ## Immediate //TODO:
 
-* toJSON()
-* More tests (primarily around bad data).
+* More edge case coverage!
+* More tests!
 
 ## How can I help?
 
