@@ -80,7 +80,7 @@ NSArray *miyagi_parseProtocolNames(NSString *attributeString){
     
     // trim everything before the first protocol, so we dont get any weird class collisions
     NSMutableArray *protocols = [NSMutableArray array];
-    int start = [attributeString rangeOfString:@"<"].location;
+    NSUInteger start = [attributeString rangeOfString:@"<"].location;
     
     // if we dont have any protocols, just return an empty array
     if(start == NSNotFound){
@@ -106,8 +106,8 @@ NSArray *miyagi_parseProtocolNames(NSString *attributeString){
 }
 
 NSString *miyagi_parseTypeName(NSString *attributeString){
-    int start = 3;
-    int end = [attributeString rangeOfString:@"<"].location;
+    NSUInteger start = 3;
+    NSUInteger end = [attributeString rangeOfString:@"<"].location;
     if(end == NSNotFound){
         end = [attributeString rangeOfString:@"\","].location;
     }
