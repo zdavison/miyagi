@@ -14,7 +14,7 @@ Via `cocoapods` : `pod miyagi`
 `miyagi` lets you spec JSON mappings in a way similar to [jackson-annotations](https://github.com/FasterXML/jackson-annotations).
 Freeing you from writing JSON mapping code anywhere in your application. A `miyagi`-fied class could look like this: 
 
-```objective-c
+```smalltalk
 JSON(MyClass)
     j(myJsonKey, name);
     j(myJsonKey2, boolean);
@@ -33,7 +33,7 @@ with a `j(key,property)` mapping for each property you'd like to map, then adopt
 Afterwards, you can call `initWithDictionary:` to create an instance from a JSON dictionary 
 (returned from your favourite JSON parser), and `JSON` to serialize the object back to a JSON dictionary.
 
-```objective-c
+```smalltalk
 MyObject *object = [[MyObject alloc] initWithDictionary:jsonDictionary];
 NSDictionary *json = [object JSON];
 ```
