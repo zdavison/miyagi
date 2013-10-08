@@ -15,11 +15,15 @@
 }
 
 -(NSString*)overridenGetter{
-    return [@"prepended_by_getter_" stringByAppendingString:_overridenGetter];
+    return [@"prepended_by_getter_" stringByAppendingString:(_overridenGetter) ?: @""];
 }
 
 -(void)setUrl:(NSString *)url{
     _url = [url stringByAppendingString:@"_appended_by_setter"];
+}
+
+-(NSDictionary*)JSON{
+    return @{@"fromUserCode": @"userValue"};
 }
 
 @end
