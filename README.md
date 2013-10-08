@@ -1,7 +1,7 @@
 miyagi
 ======
 
-JSON Marshalling, the simplest way.
+Zen-like JSON <-> Object marshalling
 
 ![JSON,JSOFF!](http://www.cazejefitness.com/mr-miyagi-smiling.jpg)
 
@@ -53,7 +53,7 @@ Object             | `NSDictionary`
 
 ## Collections
 
-`miyagi` supports collection marshalling using 'fake protocols' in the same way as `JSONModel`(https://github.com/icanzilb/JSONModel), 
+`miyagi` supports collection marshalling using 'fake protocols' in the same way as [JSONModel](https://github.com/icanzilb/JSONModel), 
 essentially giving you similar syntax to typed collections in other languages like Java.
 
 It looks like this:
@@ -94,5 +94,9 @@ Feel free to examine the code and contribute!
 ## How can I help?
 
 Write tests! Even if they don't pass, I'll look at valid JSON spec tests and make them work. :)
+
+## Thanks
+
+Thanks to [Mobile Travel Technologies Ltd.](http://mttnow.com), for letting me develop some of this on company time.
 
 
