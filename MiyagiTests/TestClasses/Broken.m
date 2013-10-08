@@ -22,4 +22,8 @@
     _url = [url stringByAppendingString:@"_appended_by_setter"];
 }
 
+-(NSDictionary*)JSON{
+    return @{@"fromUserCode": @"userValue"};
+}
+
 @end

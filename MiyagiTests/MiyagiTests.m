@@ -12,6 +12,8 @@
 #import "Nested.h"
 #import "ComplexNested.h"
 #import "Broken.h"
+#import "ParentClass.h"
+#import "SubClass.h"
 
 NSDictionary* aBasicJSON(){
     return @{
@@ -178,6 +180,13 @@ describe(@"Incorrect classes", ^{
             Broken *child = broken.objectProtocolFirst.firstObject;
             [[child.uid should] equal:@2];
         });
+        
+        it(@"should serialize to JSON including the users 'JSON' method and all Miyagi mapped keys", ^{
+            NSDictionary *json = [broken JSON];
+            
+            [[theValue(json.allKeys.count) should] equal:theValue(9)];
+            [[json[@"fromUserCode"] should] equal:@"userValue"];
+        });
     });
 });
 
@@ -192,18 +201,18 @@ describe(@"Simple Cocoa Objects", ^{
         basic.stringMap = @{@"key": @"value"};
         
         NSDictionary *json = [basic JSON];
-        
-        [[theValue(json.allKeys.count) should] equal:theValue(@5)];
-        
-        for(id value in json.allValues){
-            [[value shouldNot] beNil];
-        }
-        
-        [[json[@"id"] should] equal:@1];
-        [[json[@"JSONname"] should] equal:@"Already Initialized"];
-        [[json[@"JSONbool"] should] equal:@YES];
-        [[json[@"JSONarray"] should] equal:@[@1,@2]];
-        [[json[@"JSONmap"] should] equal:@{@"key": @"value"}];
+      
+        it(@"should have the correct amount of keys", ^{
+          [[theValue(json.allKeys.count) should] equal:theValue(5)];
+        });
+      
+        it(@"should serialize into JSON correctly", ^{
+          [[json[@"id"] should] equal:@1];
+          [[json[@"JSONname"] should] equal:@"Already Initialized"];
+          [[json[@"JSONbool"] should] equal:@YES];
+          [[json[@"JSONarray"] should] equal:@[@1,@2]];
+          [[json[@"JSONmap"] should] equal:@{@"key": @"value"}];
+        });
     });
 });
 
@@ -226,7 +235,7 @@ describe(@"Nested (depth == 1) Cocoa Objects", ^{
             [[theValue(json.allKeys.count) should] equal:theValue(5)];
         });
         
-        it(@"should parse correctly", ^{
+        it(@"should serialize into JSON correctly", ^{
             [[json[@"id"] should] equal:@1];
             [[json[@"JSONbasic"] should] equal:[aBasicObject() JSON]];
             [[json[@"JSONchild"] should] equal:[simpleNested JSON]];
@@ -236,7 +245,7 @@ describe(@"Nested (depth == 1) Cocoa Objects", ^{
     });
 });
 
-describe(@"Nested (depth > 1)", ^{
+describe(@"Nested (depth > 1) Cocoa Objects", ^{
     context(@"with valid properties", ^{
         
         __block ComplexNested *foetus = [[ComplexNested alloc] init];
@@ -256,8 +265,12 @@ describe(@"Nested (depth > 1)", ^{
         parent.childrenMap = (NSDictionary<ComplexNested>*)@{@"child": child};
         
         NSDictionary *json = [parent JSON];
-        
-        it(@"should parse correctly", ^{
+      
+        it(@"should have the correct amount of keys", ^{
+          [[theValue(json.allKeys.count) should] equal:theValue(3)];
+        });
+      
+        it(@"should serialize into JSON correctly", ^{
             NSDictionary *child = json[@"JSONchild"];
             NSDictionary *toddler = child[@"JSONchild"];
             NSArray *children = toddler[@"JSONchildrenArray"];
@@ -274,6 +287,26 @@ describe(@"Nested (depth > 1)", ^{
             [[foetus[@"id"] should] equal:@4];
         });
     });
+});
+
+describe(@"Subclasses", ^{
+  context(@"with valid properties", ^{
+    
+    __block SubClass *subclass = [[SubClass alloc] init];
+    subclass.name = @"Parent";
+    subclass.subName = @"Sub";
+    
+    NSDictionary *json = [subclass JSON];
+    
+    it(@"should have the correct amount of keys", ^{
+      [[theValue(json.allKeys.count) should] equal:theValue(2)];
+    });
+    
+    it(@"should serialize into JSON correctly", ^{
+      [[json[@"JSONname"] should] equal:@"Parent"];
+      [[json[@"JSONsubName"] should] equal:@"Sub"];
+    });
+  });
 });
 
 SPEC_END

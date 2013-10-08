@@ -44,9 +44,18 @@ BOOL miyagi_isValidType(const char *typeName){
     return NO;
 }
 
-NSString *miyagi_nondestructive_upcase(NSString *input){
+NSString* miyagi_nondestructive_upcase(NSString *input){
     NSString *upcasedChar = [input substringToIndex:1].capitalizedString;
     return [input stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:upcasedChar];
+}
+
+NSDictionary* miyagi_combineDictionaries(NSDictionary *first, NSDictionary *second){
+    NSMutableDictionary *finalDictionary = [NSMutableDictionary dictionaryWithDictionary:first];
+    for(NSString *key in second){
+        id value = [second valueForKey:key];
+        [finalDictionary setValue:value forKey:key];
+    }
+    return finalDictionary;
 }
 
 #pragma mark - Private
@@ -324,19 +333,20 @@ void miyagi_injectConstructor(Class cls){
     Method constructor = class_getInstanceMethod(cls, initSEL);
     if(constructor){
         // if so, we need to inject our behaviour before the users init
-        Method m = class_getInstanceMethod(cls, initSEL);
         IMP oldIMP = class_getMethodImplementation(cls, initSEL);
         IMP newIMP = imp_implementationWithBlock(^(id self, NSDictionary *dictionary){
             miyagi_constructor(self, nil, dictionary);
             return oldIMP(self, nil, dictionary);
         });
-        method_setImplementation(m, newIMP);
+        method_setImplementation(constructor, newIMP);
     }else{
         // otherwise just add the method
         class_addMethod(cls, initSEL, (IMP)miyagi_constructor, "@@:@");
     }
 }
 
+
+//TODO: This seems like a very naïve and potentially confounding approach.
 void miyagi_injectToJSON(Class cls){
     
     SEL jsonSEL = NSSelectorFromString(@"JSON");

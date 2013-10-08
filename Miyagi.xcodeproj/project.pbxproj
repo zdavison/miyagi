@@ -21,7 +21,8 @@
 		875BABF417F30A9A00F585E3 /* Nested.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABF317F30A9A00F585E3 /* Nested.m */; };
 		875BABF917F32AEC00F585E3 /* ComplexNested.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABF817F32AEC00F585E3 /* ComplexNested.m */; };
 		875BABFC17F3367F00F585E3 /* Broken.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABFB17F3367F00F585E3 /* Broken.m */; };
-		878792A817F496D4007E4343 /* workspace.m in Sources */ = {isa = PBXBuildFile; fileRef = 878792A717F496D4007E4343 /* workspace.m */; };
+		87B80C0A180418BD0051D06A /* ParentClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B80C09180418BD0051D06A /* ParentClass.m */; };
+		87B80C0D180418C80051D06A /* SubClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 87B80C0C180418C80051D06A /* SubClass.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,7 +70,10 @@
 		875BABF817F32AEC00F585E3 /* ComplexNested.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ComplexNested.m; sourceTree = "<group>"; };
 		875BABFA17F3367F00F585E3 /* Broken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Broken.h; sourceTree = "<group>"; };
 		875BABFB17F3367F00F585E3 /* Broken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Broken.m; sourceTree = "<group>"; };
-		878792A717F496D4007E4343 /* workspace.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = workspace.m; sourceTree = "<group>"; };
+		87B80C08180418BD0051D06A /* ParentClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParentClass.h; sourceTree = "<group>"; };
+		87B80C09180418BD0051D06A /* ParentClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParentClass.m; sourceTree = "<group>"; };
+		87B80C0B180418C80051D06A /* SubClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubClass.h; sourceTree = "<group>"; };
+		87B80C0C180418C80051D06A /* SubClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubClass.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +137,6 @@
 				875BABCD17F2F9B700F585E3 /* Miyagi.h */,
 				875BABCF17F2F9B700F585E3 /* Miyagi.m */,
 				875BABCB17F2F9B700F585E3 /* Supporting Files */,
-				878792A717F496D4007E4343 /* workspace.m */,
 			);
 			path = Miyagi;
 			sourceTree = "<group>";
@@ -176,6 +179,10 @@
 				875BABF817F32AEC00F585E3 /* ComplexNested.m */,
 				875BABFA17F3367F00F585E3 /* Broken.h */,
 				875BABFB17F3367F00F585E3 /* Broken.m */,
+				87B80C08180418BD0051D06A /* ParentClass.h */,
+				87B80C09180418BD0051D06A /* ParentClass.m */,
+				87B80C0B180418C80051D06A /* SubClass.h */,
+				87B80C0C180418C80051D06A /* SubClass.m */,
 			);
 			path = TestClasses;
 			sourceTree = "<group>";
@@ -297,7 +304,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				875BABD017F2F9B700F585E3 /* Miyagi.m in Sources */,
-				878792A817F496D4007E4343 /* workspace.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,8 +311,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87B80C0D180418C80051D06A /* SubClass.m in Sources */,
 				875BABF417F30A9A00F585E3 /* Nested.m in Sources */,
 				875BABF917F32AEC00F585E3 /* ComplexNested.m in Sources */,
+				87B80C0A180418BD0051D06A /* ParentClass.m in Sources */,
 				875BABFC17F3367F00F585E3 /* Broken.m in Sources */,
 				875BABF117F2FA1800F585E3 /* Basic.m in Sources */,
 				875BABE517F2F9B700F585E3 /* MiyagiTests.m in Sources */,
@@ -442,6 +450,7 @@
 				);
 				INFOPLIST_FILE = "MiyagiTests/MiyagiTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -459,6 +468,7 @@
 				GCC_PREFIX_HEADER = "Miyagi/Miyagi-Prefix.pch";
 				INFOPLIST_FILE = "MiyagiTests/MiyagiTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
