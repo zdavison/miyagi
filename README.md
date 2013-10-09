@@ -33,6 +33,19 @@ with a `j(key,property)` mapping for each property you'd like to map, then adopt
 Afterwards, you can call `initWithDictionary:` to create an instance from a JSON dictionary 
 (returned from your favourite JSON parser), and `JSON` to serialize the object back to a JSON dictionary.
 
+
+## Why `miyagi`?
+
+I was unhappy with almost every marshalling implementation I had seen, almost all of them were `almost` there,
+but none quite crossed the line and became a really nice solution to use, all had caveats, so here's why I
+think `miyagi` is cool.
+
+* Write no initialization code.
+* JSON spec visible alongside your properties, in your header.
+* `@properties` don't need to match JSON keys.
+* No need to subclass anything.
+* Lightweight implementation (2 files, <500 lines).
+
 ## Usage
 
 - __Specification:__
@@ -102,18 +115,6 @@ It looks like this:
 @property(nonatomic,strong)NSArray<MyClass>      *array;
 @property(nonatomic,strong)NSDictionary<MyClass> *map;
 ```
-
-## Why `miyagi`?
-
-I was unhappy with almost every marshalling implementation I had seen, almost all of them were `almost` there,
-but none quite crossed the line and became a really nice solution to use, all had caveats, so here's why I
-think `miyagi` is cool.
-
-* Write no initialization code.
-* JSON spec visible alongside your properties, in your header.
-* `@properties` don't need to match JSON keys.
-* No need to subclass anything.
-* Lightweight implementation (2 files, <500 lines).
 
 ## Immediate //TODO:
 
