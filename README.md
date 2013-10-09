@@ -16,8 +16,8 @@ Freeing you from writing JSON mapping code anywhere in your application. A `miya
 
 ```smalltalk
 JSON(MyClass)
-    j(myJsonKey, name);
-    j(myJsonKey2, boolean);
+    j(myJsonKey, name)
+    j(myJsonKey2, boolean)
 JSOFF(MyClass)
 
 @interface Basic : NSObject <JSON>
@@ -54,8 +54,8 @@ Define your JSON mappings in your header file, above your interface, like so:
 
 ```smalltalk
 JSON(MyClass)
-    j(myJsonKey, name);
-    j(myJsonKey2, boolean);
+    j(myJsonKey, name)
+    j(myJsonKey2, boolean)
 JSOFF(MyClass)
 ```
 
