@@ -33,9 +33,48 @@ with a `j(key,property)` mapping for each property you'd like to map, then adopt
 Afterwards, you can call `initWithDictionary:` to create an instance from a JSON dictionary 
 (returned from your favourite JSON parser), and `JSON` to serialize the object back to a JSON dictionary.
 
+## Usage
+
+# Specification
+Define your JSON mappings in your header file, above your interface, like so:
+
+```smalltalk
+JSON(MyClass)
+    j(myJsonKey, name);
+    j(myJsonKey2, boolean);
+JSOFF(MyClass)
+```
+
+Your properties will be invisibly mapped to the keys. You can overrided property names as normal, 
+and `miyagi` injection will occur _before_ your code executes. There is no need to call `super`!
+(So variables will already have been injected in overriden methods)
+
+# From JSON:
+
 ```smalltalk
 MyObject *object = [[MyObject alloc] initWithDictionary:jsonDictionary];
+```
+
+After calling `initWithDictionary:`, your object will have been mapped. You can implement this method
+in your class, without calling `super`, and injection will occur _before_ your code executes.
+
+# To JSON:
+
+```smalltalk
 NSDictionary *json = [object JSON];
+```
+
+You can call `JSON` to generate an `NSDictionary` from your object, mapped in reverse using your mappings.
+You can implement this method in your class, without calling `super`, and injection will occur _before_ your code executes.
+The `NSDictionary` returned will be merged with the `miyagi` `NSDictionary`, with your keys overwriting `miyagi`s in 
+the event of a collision.
+
+_Example:_
+```smalltalk
+-(NSDictionary*)JSON{
+    return @{@"myKey": @"myValue"};
+    // your returned dictionary will be merged into the JSON dictionary.
+}
 ```
 
 ## Supported Types
@@ -74,17 +113,6 @@ think `miyagi` is cool.
 * `@properties` don't need to match JSON keys.
 * No need to subclass anything.
 * Lightweight implementation (2 files, <500 lines).
-
-## How it works
-
-`miyagi` uses a couple of macros to do its work. It creates fake protocols for each adopting class, 
-and stores source/destination keys in smart-named method names. Dynamically, at runtime, these
-fake protocols inject their payloads into your classes, and create 'routing' properties, copying your
-method implementations for your setters/getters and targeting the same `ivar` (So you can override get/set 
-and have your JSON get/set function the same way). It then injects the `initWithDictionary:` constructor
-into the class (making sure to preserve any existing code you have in that method, if implemented).
-
-Feel free to examine the code and contribute!
 
 ## Immediate //TODO:
 
