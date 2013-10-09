@@ -79,7 +79,7 @@ NSDictionary *json = [object JSON];
 ```
 
 You can call `JSON` to generate an `NSDictionary` from your object, mapped in reverse using your mappings.
-You can implement this method in your class, without calling `super`, and injection will occur _before_ your code executes.
+You can implement this method in your class, without calling `super`, and injection will occur __before__ your code executes.
 The `NSDictionary` returned will be merged with the `miyagi` `NSDictionary`, with your keys overwriting `miyagi`s in 
 the event of a collision.
 
