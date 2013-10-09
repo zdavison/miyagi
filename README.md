@@ -35,7 +35,7 @@ Afterwards, you can call `initWithDictionary:` to create an instance from a JSON
 
 # Usage
 
-- _Specification:_
+- __Specification:__
 
 Define your JSON mappings in your header file, above your interface, like so:
 
@@ -47,19 +47,19 @@ JSOFF(MyClass)
 ```
 
 Your properties will be invisibly mapped to the keys. You can overrided property names as normal, 
-and `miyagi` injection will occur _before_ your code executes. There is no need to call `super`!
+and `miyagi` injection will occur __before__ your code executes. There is no need to call `super`!
 (So variables will already have been injected in overriden methods)
 
-- _From JSON:_
+- __From JSON:__
 
 ```smalltalk
 MyObject *object = [[MyObject alloc] initWithDictionary:jsonDictionary];
 ```
 
 After calling `initWithDictionary:`, your object will have been mapped. You can implement this method
-in your class, without calling `super`, and injection will occur _before_ your code executes.
+in your class, without calling `super`, and injection will occur __before__ your code executes.
 
-- _To JSON:_
+- __To JSON:__
 
 ```smalltalk
 NSDictionary *json = [object JSON];
@@ -70,7 +70,7 @@ You can implement this method in your class, without calling `super`, and inject
 The `NSDictionary` returned will be merged with the `miyagi` `NSDictionary`, with your keys overwriting `miyagi`s in 
 the event of a collision.
 
-_Example:_
+__Example:__
 ```smalltalk
 -(NSDictionary*)JSON{
     return @{@"myKey": @"myValue"};
