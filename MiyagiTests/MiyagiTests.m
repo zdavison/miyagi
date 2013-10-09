@@ -187,6 +187,10 @@ describe(@"Weird/Abnormal ('Broken') classes", ^{
             [[theValue(json.allKeys.count) should] equal:theValue(5)];
             [[json[@"fromUserCode"] should] equal:@"userValue"];
         });
+        
+        it(@"should handle user 'initWithDictionary:' implementations", ^{
+            [[broken.notSetFromJSON should] equal:@"initWithDictionary user code"];
+        });
     });
 });
 

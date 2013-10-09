@@ -11,6 +11,7 @@
 @implementation Broken
 
 -(id)initWithDictionary:(NSDictionary *)dictionary{
+    self.notSetFromJSON = @"initWithDictionary user code";
     return self;
 }
 

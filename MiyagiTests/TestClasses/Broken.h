@@ -13,7 +13,7 @@ JSON(Broken)
     j(id,uid)
     j(url,url)
     j(array, objectProtocolFirst)
-    j(jsonOverride, overridenGetter);
+    j(jsonOverride, overridenGetter)
     j(null, nullValue)
 JSOFF(Broken)
 
@@ -24,5 +24,6 @@ JSOFF(Broken)
 @property(nonatomic,strong)NSString *overridenGetter;
 @property(nonatomic,strong)NSArray<NSObject,Broken> *objectProtocolFirst;
 @property(nonatomic,strong)NSString *nullValue;
+@property(nonatomic,strong)NSString *notSetFromJSON;
 
 @end
