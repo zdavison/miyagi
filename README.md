@@ -33,9 +33,9 @@ with a `j(key,property)` mapping for each property you'd like to map, then adopt
 Afterwards, you can call `initWithDictionary:` to create an instance from a JSON dictionary 
 (returned from your favourite JSON parser), and `JSON` to serialize the object back to a JSON dictionary.
 
-## Usage
+# Usage
 
-# Specification
+- Specification
 Define your JSON mappings in your header file, above your interface, like so:
 
 ```smalltalk
@@ -49,7 +49,7 @@ Your properties will be invisibly mapped to the keys. You can overrided property
 and `miyagi` injection will occur _before_ your code executes. There is no need to call `super`!
 (So variables will already have been injected in overriden methods)
 
-# From JSON:
+- From JSON:
 
 ```smalltalk
 MyObject *object = [[MyObject alloc] initWithDictionary:jsonDictionary];
@@ -58,7 +58,7 @@ MyObject *object = [[MyObject alloc] initWithDictionary:jsonDictionary];
 After calling `initWithDictionary:`, your object will have been mapped. You can implement this method
 in your class, without calling `super`, and injection will occur _before_ your code executes.
 
-# To JSON:
+- To JSON:
 
 ```smalltalk
 NSDictionary *json = [object JSON];
