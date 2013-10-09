@@ -33,7 +33,7 @@ with a `j(key,property)` mapping for each property you'd like to map, then adopt
 Afterwards, you can call `initWithDictionary:` to create an instance from a JSON dictionary 
 (returned from your favourite JSON parser), and `JSON` to serialize the object back to a JSON dictionary.
 
-# Usage
+## Usage
 
 - __Specification:__
 
