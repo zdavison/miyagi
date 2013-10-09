@@ -36,6 +36,7 @@ Afterwards, you can call `initWithDictionary:` to create an instance from a JSON
 # Usage
 
 - Specification
+
 Define your JSON mappings in your header file, above your interface, like so:
 
 ```smalltalk
