@@ -11,11 +11,11 @@
 #import "Basic.h"
 
 JSON(Nested)
-    j(id,               uid);
-    j(JSONchild,        child);
-    j(JSONbasic,        basic);
-    j(JSONchildrenArray,childrenArray);
-    j(JSONchildrenMap,  childrenMap);
+    j(id,               uid)
+    j(JSONchild,        child)
+    j(JSONbasic,        basic)
+    j(JSONchildrenArray,childrenArray)
+    j(JSONchildrenMap,  childrenMap)
 JSOFF(Nested)
 
 @interface Nested : NSObject <JSON>

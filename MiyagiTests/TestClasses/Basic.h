@@ -10,11 +10,11 @@
 #import "Miyagi.h"
 
 JSON(Basic)
-    j(id, uid);
-    j(JSONname, name);
-    j(JSONbool, boolean);
-    j(JSONarray, stringArray);
-    j(JSONmap, stringMap);
+    j(id, uid)
+    j(JSONname, name)
+    j(JSONbool, boolean)
+    j(JSONarray, stringArray)
+    j(JSONmap, stringMap)
 JSOFF(Basic)
 
 @interface Basic : NSObject <JSON>

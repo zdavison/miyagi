@@ -10,10 +10,10 @@
 #import "Miyagi.h"
 
 JSON(ComplexNested)
-    j(id, uid);
-    j(JSONchild, child);
-    j(JSONchildrenArray, childrenArray);
-    j(JSONchildrenMap, childrenMap);
+    j(id, uid)
+    j(JSONchild, child)
+    j(JSONchildrenArray, childrenArray)
+    j(JSONchildrenMap, childrenMap)
 JSOFF(ComplexNested)
 
 @interface ComplexNested : NSObject <JSON>

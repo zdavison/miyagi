@@ -10,7 +10,7 @@
 #import "Miyagi.h"
 
 JSON(ParentClass)
-  j(JSONname, name);
+  j(JSONname, name)
 JSOFF(ParentClass)
 
 @interface ParentClass : NSObject<JSON>

@@ -9,7 +9,7 @@
 #import "ParentClass.h"
 
 JSON(SubClass)
-  j(JSONsubName, subName);
+    j(JSONsubName, subName)
 JSOFF(SubClass)
 
 @interface SubClass : ParentClass

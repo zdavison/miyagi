@@ -19,6 +19,13 @@ static const char* JSONTypes[] = {
     "NSArray"
 };
 
+#pragma mark - Types
+
+typedef enum{
+    miyagi_transformationTypeToObject,
+    miyagi_transformationTypeToJSON
+}miyagi_transformationType;
+
 #pragma mark - Helpers
 
 BOOL miyagi_isValidType(const char *typeName){
@@ -129,11 +136,6 @@ Class miyagi_validClassFromName(NSString *name){
     
     return nil;
 }
-
-typedef enum{
-    miyagi_transformationTypeToObject,
-    miyagi_transformationTypeToJSON
-}miyagi_transformationType;
 
 NSArray* miyagi_transformArray(NSArray *input, NSArray *validProtocolNames, miyagi_transformationType transformationType){
     
