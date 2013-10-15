@@ -19,13 +19,6 @@ static const char* JSONTypes[] = {
     "NSArray"
 };
 
-#pragma mark - Types
-
-typedef enum{
-    miyagi_transformationTypeToObject,
-    miyagi_transformationTypeToJSON
-}miyagi_transformationType;
-
 #pragma mark - Helpers
 
 BOOL miyagi_isValidType(const char *typeName){

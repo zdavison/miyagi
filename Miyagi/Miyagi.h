@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 
+#pragma mark - Miyagi Imports
+
+#import "NSArray+Miyagi.h"
+#import "NSDictionary+Miyagi.h"
+
+#pragma mark - Macros
+
 #define JSON(CLASSNAME) \
     @class CLASSNAME; \
     @protocol CLASSNAME; \
@@ -33,14 +40,25 @@
         } \
     }
 
+#pragma mark - Protocols
+
 @protocol JSON <NSObject>
 @optional
 -(id)initWithDictionary:(NSDictionary*)dictionary;
 -(NSDictionary*)JSON;
 @end
 
+#pragma mark - Functions
+
 void miyagi_injectProtocolRouting(Class cls, Protocol *protocol);
 void miyagi_injectConstructor(Class cls);
 void miyagi_injectToJSON(Class cls);
 BOOL miyagi_classInitialized(Class cls);
 void miyagi_closeClass(Class cls);
+
+#pragma mark - Types
+
+typedef enum{
+  miyagi_transformationTypeToObject,
+  miyagi_transformationTypeToJSON
+}miyagi_transformationType;

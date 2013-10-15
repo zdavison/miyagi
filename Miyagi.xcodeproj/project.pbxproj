@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		252FE94F221544B1A40AAD99 /* libPods-MiyagiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CCF0124FB84A729AC246BB /* libPods-MiyagiTests.a */; };
+		872DCC56180DC0CA002113A7 /* NSArray+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC55180DC0C9002113A7 /* NSArray+Miyagi.m */; };
+		872DCC57180DC0CA002113A7 /* NSArray+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC55180DC0C9002113A7 /* NSArray+Miyagi.m */; };
+		872DCC5A180DC127002113A7 /* NSDictionary+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC59180DC127002113A7 /* NSDictionary+Miyagi.m */; };
+		872DCC5B180DC127002113A7 /* NSDictionary+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC59180DC127002113A7 /* NSDictionary+Miyagi.m */; };
+		872DCC5E180DC5D5002113A7 /* MiyagiCategoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC5D180DC5D5002113A7 /* MiyagiCategoryTests.m */; };
 		875BABC917F2F9B700F585E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABC817F2F9B700F585E3 /* Foundation.framework */; };
 		875BABCE17F2F9B700F585E3 /* Miyagi.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 875BABCD17F2F9B700F585E3 /* Miyagi.h */; };
 		875BABD017F2F9B700F585E3 /* Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABCF17F2F9B700F585E3 /* Miyagi.m */; };
@@ -51,6 +56,12 @@
 /* Begin PBXFileReference section */
 		1B889B26D4144DC6AEEC7598 /* Pods-MiyagiTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiyagiTests.xcconfig"; path = "Pods/Pods-MiyagiTests.xcconfig"; sourceTree = "<group>"; };
 		44CCF0124FB84A729AC246BB /* libPods-MiyagiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MiyagiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		872DCC54180DC0C9002113A7 /* NSArray+Miyagi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Miyagi.h"; sourceTree = "<group>"; };
+		872DCC55180DC0C9002113A7 /* NSArray+Miyagi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Miyagi.m"; sourceTree = "<group>"; };
+		872DCC58180DC127002113A7 /* NSDictionary+Miyagi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Miyagi.h"; sourceTree = "<group>"; };
+		872DCC59180DC127002113A7 /* NSDictionary+Miyagi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Miyagi.m"; sourceTree = "<group>"; };
+		872DCC5C180DC268002113A7 /* Miyagi+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Miyagi+Private.h"; sourceTree = "<group>"; };
+		872DCC5D180DC5D5002113A7 /* MiyagiCategoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiyagiCategoryTests.m; sourceTree = "<group>"; };
 		875BABC517F2F9B700F585E3 /* libMiyagi.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMiyagi.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		875BABC817F2F9B700F585E3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		875BABCC17F2F9B700F585E3 /* Miyagi-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Miyagi-Prefix.pch"; sourceTree = "<group>"; };
@@ -100,6 +111,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		872DCC53180DBF7F002113A7 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				872DCC54180DC0C9002113A7 /* NSArray+Miyagi.h */,
+				872DCC55180DC0C9002113A7 /* NSArray+Miyagi.m */,
+				872DCC58180DC127002113A7 /* NSDictionary+Miyagi.h */,
+				872DCC59180DC127002113A7 /* NSDictionary+Miyagi.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		875BABBC17F2F9B700F585E3 = {
 			isa = PBXGroup;
 			children = (
@@ -134,8 +156,10 @@
 		875BABCA17F2F9B700F585E3 /* Miyagi */ = {
 			isa = PBXGroup;
 			children = (
+				872DCC53180DBF7F002113A7 /* Categories */,
 				875BABCD17F2F9B700F585E3 /* Miyagi.h */,
 				875BABCF17F2F9B700F585E3 /* Miyagi.m */,
+				872DCC5C180DC268002113A7 /* Miyagi+Private.h */,
 				875BABCB17F2F9B700F585E3 /* Supporting Files */,
 			);
 			path = Miyagi;
@@ -154,6 +178,7 @@
 			children = (
 				875BABEE17F2FA1800F585E3 /* TestClasses */,
 				875BABE417F2F9B700F585E3 /* MiyagiTests.m */,
+				872DCC5D180DC5D5002113A7 /* MiyagiCategoryTests.m */,
 				875BABDF17F2F9B700F585E3 /* Supporting Files */,
 			);
 			path = MiyagiTests;
@@ -303,6 +328,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				872DCC56180DC0CA002113A7 /* NSArray+Miyagi.m in Sources */,
+				872DCC5A180DC127002113A7 /* NSDictionary+Miyagi.m in Sources */,
 				875BABD017F2F9B700F585E3 /* Miyagi.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -317,7 +344,10 @@
 				87B80C0A180418BD0051D06A /* ParentClass.m in Sources */,
 				875BABFC17F3367F00F585E3 /* Broken.m in Sources */,
 				875BABF117F2FA1800F585E3 /* Basic.m in Sources */,
+				872DCC57180DC0CA002113A7 /* NSArray+Miyagi.m in Sources */,
+				872DCC5B180DC127002113A7 /* NSDictionary+Miyagi.m in Sources */,
 				875BABE517F2F9B700F585E3 /* MiyagiTests.m in Sources */,
+				872DCC5E180DC5D5002113A7 /* MiyagiCategoryTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
