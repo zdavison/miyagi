@@ -14,6 +14,8 @@
 #import "Broken.h"
 #import "ParentClass.h"
 #import "SubClass.h"
+#import "CustomInitializer.h"
+#import "BrokenCustomInitializer.h"
 
 NSDictionary* aBasicJSON(){
     return @{
@@ -331,6 +333,70 @@ describe(@"Subclasses", ^{
         });
     });
   });
+});
+
+describe(@"Exceptions", ^{
+  context(@"should be raised", ^{
+    
+    it(@"when invalid types are passed to initWithDictionary:", ^{
+      NSArray *array = @[@1];
+      [[theBlock(^{
+        Basic *basic = [[Basic alloc] initWithDictionary:(NSDictionary*)array];
+        basic = nil;
+      }) should] raiseWithName:@"MIYAGIInvalidClassException"];
+    });
+    
+  });
+});
+
+describe(@"Objects", ^{
+    context(@"given valid values", ^{
+        
+         __block NSDictionary *json = @{@"JSONname": @"Jimmy Testerson"};
+        
+        it(@"should be able to call 'setupWithDictionary:' at any time", ^{
+            
+            Basic *object = [[Basic alloc] init];
+            [[object.name should] beNil];
+            [object setupWithDictionary:json];
+            [[object.name should] equal:@"Jimmy Testerson"];
+            
+        });
+    });
+});
+
+describe(@"Nested classes with custom initializers", ^{
+    
+        context(@"given valid values", ^{
+            
+            __block NSDictionary *json = @{
+                                           @"JSONname": @"Jimmy Testerson",
+                                           @"JSONnested": @{
+                                                   @"JSONname": @"Jimmy Nested"
+                                                   }
+                                           };
+            context(@"with a valid protocol implementation", ^{
+                it(@"should be able to initialize", ^{
+                
+                    CustomInitializer *custom = [[CustomInitializer alloc] initWithDictionary:json];
+                    [[custom.name should] equal:@"Jimmy Testerson"];
+                    [[custom.nestedObject.name should] equal:@"Jimmy Nested"];
+                    [[custom.nestedObject.customProperty should] equal:@"Custom Property"];
+                
+                });
+            });
+            
+            context(@"with an invalid protocol implementation", ^{
+                it(@"should raise the appropriate error messages", ^{
+                    
+                    [[theBlock(^{
+                        BrokenCustomInitializer *broken = [[BrokenCustomInitializer alloc] initWithDictionary:json];
+                        broken = nil;
+                    }) should] raiseWithName:@"MIYAGIInitializerException"];
+                });
+            });
+    });
+    
 });
 
 SPEC_END

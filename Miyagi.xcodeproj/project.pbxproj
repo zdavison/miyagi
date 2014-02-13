@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		252FE94F221544B1A40AAD99 /* libPods-MiyagiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CCF0124FB84A729AC246BB /* libPods-MiyagiTests.a */; };
+		870F343718AD6DFE00CB88B7 /* CustomInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 870F343618AD6DFE00CB88B7 /* CustomInitializer.m */; };
+		870F343D18AD7BFC00CB88B7 /* BrokenCustomInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 870F343C18AD7BFC00CB88B7 /* BrokenCustomInitializer.m */; };
 		872DCC56180DC0CA002113A7 /* NSArray+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC55180DC0C9002113A7 /* NSArray+Miyagi.m */; };
 		872DCC57180DC0CA002113A7 /* NSArray+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC55180DC0C9002113A7 /* NSArray+Miyagi.m */; };
 		872DCC5A180DC127002113A7 /* NSDictionary+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC59180DC127002113A7 /* NSDictionary+Miyagi.m */; };
@@ -15,7 +17,7 @@
 		872DCC5E180DC5D5002113A7 /* MiyagiCategoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC5D180DC5D5002113A7 /* MiyagiCategoryTests.m */; };
 		875BABC917F2F9B700F585E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABC817F2F9B700F585E3 /* Foundation.framework */; };
 		875BABCE17F2F9B700F585E3 /* Miyagi.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 875BABCD17F2F9B700F585E3 /* Miyagi.h */; };
-		875BABD017F2F9B700F585E3 /* Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABCF17F2F9B700F585E3 /* Miyagi.m */; };
+		875BABD017F2F9B700F585E3 /* Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 875BABCF17F2F9B700F585E3 /* Miyagi.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		875BABD717F2F9B700F585E3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABD617F2F9B700F585E3 /* XCTest.framework */; };
 		875BABD817F2F9B700F585E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABC817F2F9B700F585E3 /* Foundation.framework */; };
 		875BABDA17F2F9B700F585E3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABD917F2F9B700F585E3 /* UIKit.framework */; };
@@ -56,6 +58,10 @@
 /* Begin PBXFileReference section */
 		1B889B26D4144DC6AEEC7598 /* Pods-MiyagiTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MiyagiTests.xcconfig"; path = "Pods/Pods-MiyagiTests.xcconfig"; sourceTree = "<group>"; };
 		44CCF0124FB84A729AC246BB /* libPods-MiyagiTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MiyagiTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		870F343518AD6DFE00CB88B7 /* CustomInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomInitializer.h; sourceTree = "<group>"; };
+		870F343618AD6DFE00CB88B7 /* CustomInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomInitializer.m; sourceTree = "<group>"; };
+		870F343B18AD7BFC00CB88B7 /* BrokenCustomInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrokenCustomInitializer.h; sourceTree = "<group>"; };
+		870F343C18AD7BFC00CB88B7 /* BrokenCustomInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrokenCustomInitializer.m; sourceTree = "<group>"; };
 		872DCC54180DC0C9002113A7 /* NSArray+Miyagi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Miyagi.h"; sourceTree = "<group>"; };
 		872DCC55180DC0C9002113A7 /* NSArray+Miyagi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+Miyagi.m"; sourceTree = "<group>"; };
 		872DCC58180DC127002113A7 /* NSDictionary+Miyagi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Miyagi.h"; sourceTree = "<group>"; };
@@ -208,6 +214,10 @@
 				87B80C09180418BD0051D06A /* ParentClass.m */,
 				87B80C0B180418C80051D06A /* SubClass.h */,
 				87B80C0C180418C80051D06A /* SubClass.m */,
+				870F343518AD6DFE00CB88B7 /* CustomInitializer.h */,
+				870F343618AD6DFE00CB88B7 /* CustomInitializer.m */,
+				870F343B18AD7BFC00CB88B7 /* BrokenCustomInitializer.h */,
+				870F343C18AD7BFC00CB88B7 /* BrokenCustomInitializer.m */,
 			);
 			path = TestClasses;
 			sourceTree = "<group>";
@@ -338,9 +348,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				870F343D18AD7BFC00CB88B7 /* BrokenCustomInitializer.m in Sources */,
 				87B80C0D180418C80051D06A /* SubClass.m in Sources */,
 				875BABF417F30A9A00F585E3 /* Nested.m in Sources */,
 				875BABF917F32AEC00F585E3 /* ComplexNested.m in Sources */,
+				870F343718AD6DFE00CB88B7 /* CustomInitializer.m in Sources */,
 				87B80C0A180418BD0051D06A /* ParentClass.m in Sources */,
 				875BABFC17F3367F00F585E3 /* Broken.m in Sources */,
 				875BABF117F2FA1800F585E3 /* Basic.m in Sources */,

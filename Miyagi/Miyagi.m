@@ -8,6 +8,7 @@
 
 #import "Miyagi.h"
 #import <objc/message.h>
+#import <CoreData/CoreData.h>
 
 #pragma mark - Statics
 
@@ -20,6 +21,16 @@ static const char* JSONTypes[] = {
 };
 
 #pragma mark - Helpers
+
+BOOL miyagi_classIsSubclassOf(Class class,Class superclass){
+  if(class == nil){
+    return NO;
+  }
+  if(class == superclass){
+    return YES;
+  }
+  return miyagi_classIsSubclassOf(class_getSuperclass(class),superclass);
+}
 
 BOOL miyagi_isValidType(const char *typeName){
     
@@ -130,6 +141,52 @@ Class miyagi_validClassFromName(NSString *name){
     return nil;
 }
 
+id miyagi_createInstance(Class type, NSDictionary *dictionary){
+    
+    id self = [class_createInstance(type, 0) autorelease];
+    
+    if([type respondsToSelector:@selector(initSelector)]){
+        SEL initSEL = [type initSelector];
+        
+        NSMethodSignature *signature = [self methodSignatureForSelector:initSEL];
+        
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+        [invocation setTarget:self];
+        [invocation setSelector:initSEL];
+        
+        if([type respondsToSelector:@selector(initParameters)]){
+            
+            if(signature.numberOfArguments - 2 > [type initParameters].count){
+                [NSException raise:@"MIYAGIInitializerException" format:@"Object %@ provides an initSelector implementation with > 0 arguments, but initParameters does not return the appropriate amount of parameters.",self];
+            }
+            
+            NSArray *initParams = [type initParameters];
+            
+            for(NSUInteger i = 0; i < initParams.count; i++){
+                id object = initParams[i];
+                [invocation setArgument:&object atIndex:i + 2];
+            }
+        }else if(signature.numberOfArguments - 2 > 0){
+            [NSException raise:@"MIYAGIInitializerException" format:@"Object %@ provides an initSelector implementation with > 0 arguments, but does not implement initParameters.",self];
+        }
+        
+        [invocation invoke];
+        
+        [invocation getReturnValue:&self];
+        [self setupWithDictionary:dictionary];
+        return self;
+        
+    }
+    
+    if([self respondsToSelector:@selector(initWithDictionary:)]){
+        return [self initWithDictionary:dictionary];
+    }else{
+        [NSException raise:@"MIYAGIInitializerException" format:@"Object %@ does not provide an initSelector implementation, nor does it have an initWithDictionary: implementation.",self];
+    }
+    
+    return nil;
+}
+
 NSArray* miyagi_transformArray(NSArray *input, NSArray *validProtocolNames, miyagi_transformationType transformationType){
     
     NSMutableArray *transformed = [NSMutableArray array];
@@ -140,7 +197,7 @@ NSArray* miyagi_transformArray(NSArray *input, NSArray *validProtocolNames, miya
             for(id object in (NSArray*)input){
                 id instance = nil;
                 if(transformationType == miyagi_transformationTypeToObject){
-                    instance = [[cls alloc] initWithDictionary:object];
+                    instance = miyagi_createInstance(cls,object);
                 }else{
                     instance = [object JSON];
                 }
@@ -165,7 +222,7 @@ NSDictionary* miyagi_transformDictionary(NSDictionary *input, NSArray *validProt
                 id instance = object;
                 if([object isKindOfClass:[NSDictionary class]]){
                     if(transformationType ==  miyagi_transformationTypeToObject){
-                        instance = [[cls alloc] initWithDictionary:object];
+                        instance = miyagi_createInstance(cls,object);
                     }else{
                         instance = [object JSON];
                     }
@@ -195,6 +252,10 @@ id miyagi_transformCollection(id input, NSArray *validProtocolNames, miyagi_tran
 }
 
 id miyagi_constructor(id self, SEL _cmd, NSDictionary *dictionary){
+  
+    if(![dictionary isKindOfClass:[NSDictionary class]]){
+        [NSException raise:@"MIYAGIInvalidClassException" format:@"Object %@ is not of type NSDictionary",dictionary];
+    }
                 //                      struct objc_super supes = { self, [self superclass] };
     if(self){   //TODO: should this be 'if(self ==  objc_msgSendSuper(&supes, @selector(init)))' ??
         for(NSString *jsonKey in dictionary.allKeys){
@@ -223,7 +284,7 @@ id miyagi_constructor(id self, SEL _cmd, NSDictionary *dictionary){
             NSString *typeName = miyagi_parseTypeName(attributeString);
             Class type = NSClassFromString(typeName);
             if(type && class_conformsToProtocol(type, @protocol(JSON))){
-                value = [[type alloc] initWithDictionary:value];
+                value = miyagi_createInstance(type,value);
             }
             
             [self setValue:value forKey:propKey];
@@ -351,7 +412,7 @@ void miyagi_injectProtocolRouting(Class cls, Protocol *protocol){
 }
 
 void miyagi_injectConstructor(Class cls){
-    
+  
     SEL initSEL = NSSelectorFromString(@"initWithDictionary:");
     
     // check if we have a user implementation of initWithDictionary:
@@ -367,6 +428,26 @@ void miyagi_injectConstructor(Class cls){
     }else{
         // otherwise just add the method
         class_addMethod(cls, initSEL, (IMP)miyagi_constructor, "@@:@");
+    }
+}
+
+void miyagi_injectSetup(Class cls){
+    
+    SEL setupSEL = NSSelectorFromString(@"setupWithDictionary:");
+    
+    // check if we have a user implementation of setupWithDictionary:
+    Method setup = class_getInstanceMethod(cls, setupSEL);
+    if(setup){
+        // if so, we need to inject our behaviour before the users init
+        IMP oldIMP = class_getMethodImplementation(cls, setupSEL);
+        IMP newIMP = imp_implementationWithBlock(^(id self, NSDictionary *dictionary){
+            miyagi_constructor(self, nil, dictionary);
+            return oldIMP(self, nil, dictionary);
+        });
+        method_setImplementation(setup, newIMP);
+    }else{
+        // otherwise just add the method
+        class_addMethod(cls, setupSEL, (IMP)miyagi_constructor, "@@:@");
     }
 }
 
