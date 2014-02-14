@@ -10,9 +10,9 @@
 		252FE94F221544B1A40AAD99 /* libPods-MiyagiTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CCF0124FB84A729AC246BB /* libPods-MiyagiTests.a */; };
 		870F343718AD6DFE00CB88B7 /* CustomInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 870F343618AD6DFE00CB88B7 /* CustomInitializer.m */; };
 		870F343D18AD7BFC00CB88B7 /* BrokenCustomInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 870F343C18AD7BFC00CB88B7 /* BrokenCustomInitializer.m */; };
-		872DCC56180DC0CA002113A7 /* NSArray+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC55180DC0C9002113A7 /* NSArray+Miyagi.m */; };
+		872DCC56180DC0CA002113A7 /* NSArray+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC55180DC0C9002113A7 /* NSArray+Miyagi.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		872DCC57180DC0CA002113A7 /* NSArray+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC55180DC0C9002113A7 /* NSArray+Miyagi.m */; };
-		872DCC5A180DC127002113A7 /* NSDictionary+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC59180DC127002113A7 /* NSDictionary+Miyagi.m */; };
+		872DCC5A180DC127002113A7 /* NSDictionary+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC59180DC127002113A7 /* NSDictionary+Miyagi.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		872DCC5B180DC127002113A7 /* NSDictionary+Miyagi.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC59180DC127002113A7 /* NSDictionary+Miyagi.m */; };
 		872DCC5E180DC5D5002113A7 /* MiyagiCategoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 872DCC5D180DC5D5002113A7 /* MiyagiCategoryTests.m */; };
 		875BABC917F2F9B700F585E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 875BABC817F2F9B700F585E3 /* Foundation.framework */; };
